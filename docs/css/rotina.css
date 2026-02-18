@@ -428,13 +428,9 @@ body.tema-menina .valor-badge {
     background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
 }
 
-/* Cabeçalho da coluna do dia de hoje — fixo após o nome */
 .tabela-rotina th.dia-hoje {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     font-weight: bold;
-    position: sticky;
-    left: var(--col-nome-width, 0px);
-    z-index: 2;
 }
 
 .tabela-rotina th.dia-hoje::after {
@@ -447,13 +443,8 @@ body.tema-menina .valor-badge {
     border: 2px solid #e0e0e0;
 }
 
-/* Célula do dia de hoje — fixa após o nome */
 .tabela-rotina td.dia-hoje {
     background: #f0fdf4;
-    position: sticky;
-    left: var(--col-nome-width, 0px);
-    z-index: 1;
-    border-right: 3px solid #10b981;
 }
 
 .tabela-rotina td.atividade-nome {

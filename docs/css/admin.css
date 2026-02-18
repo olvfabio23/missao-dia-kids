@@ -477,6 +477,14 @@ textarea:focus {
     background: #d97706;
 }
 
+.btn-manual {
+    background: #0ea5e9;
+}
+
+.btn-manual:hover {
+    background: #0284c7;
+}
+
 .atividade-opcao {
     transition: all 0.3s ease;
 }
