@@ -967,7 +967,7 @@ function mostrarMensagem(texto, tipo) {
 }
 
 function abrirManual() {
-    window.open('../MANUAL_DE_USUARIO.html', '_blank');
+    window.open('MANUAL_DE_USUARIO.html', '_blank');
 }
 
 function abrirAlterarSenha() {
