@@ -63,6 +63,8 @@ function estaNoFuturo(diaSemana) {
 
 // ========== INICIALIZAÇÃO ==========
 
+window.addEventListener('resize', () => { ajustarStickyHoje(); });
+
 window.addEventListener('DOMContentLoaded', async () => {
     console.log('🔄 Iniciando carregamento da rotina...');
     const urlParams = new URLSearchParams(window.location.search);
@@ -383,6 +385,19 @@ function renderizarRotina() {
     
     // Adicionar event listeners aos checkboxes após renderização
     adicionarEventListenersCheckboxes();
+
+    // Ajusta a posição sticky da coluna "hoje" logo após a coluna de nomes
+    ajustarStickyHoje();
+}
+
+function ajustarStickyHoje() {
+    // Executa após o browser calcular os tamanhos reais dos elementos
+    requestAnimationFrame(() => {
+        const primeiroNome = document.querySelector('.tabela-rotina td.atividade-nome');
+        if (!primeiroNome) return;
+        const largura = primeiroNome.getBoundingClientRect().width;
+        document.documentElement.style.setProperty('--col-nome-width', largura + 'px');
+    });
 }
 
 // Função para adicionar eventos aos checkboxes
