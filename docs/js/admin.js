@@ -966,6 +966,10 @@ function mostrarMensagem(texto, tipo) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function abrirManual() {
+    window.open('../MANUAL_DE_USUARIO.html', '_blank');
+}
+
 function abrirAlterarSenha() {
     document.getElementById('modalAlterarSenha').style.display = 'block';
     document.getElementById('formAlterarSenha').reset();
