@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual — Publicar MissãoDoDiaKids no GitHub Pages</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", Arial, sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.7; }
+  .capa { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color: white; text-align: center; padding: 60px 20px 50px; }
+  .capa h1 { font-size: 2.4rem; margin-bottom: 10px; }
+  .capa p  { font-size: 1.1rem; opacity: .85; margin-top: 10px; }
+  .badge   { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 6px 18px; margin-top: 16px; font-size: .9rem; }
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+  .secao-titulo { font-size: 1.4rem; color: #1e3a8a; border-bottom: 3px solid #3b82f6; padding-bottom: 8px; margin: 40px 0 20px; }
+  .card { background: white; border-radius: 12px; padding: 26px 30px; margin-bottom: 18px; box-shadow: 0 2px 10px rgba(0,0,0,.07); }
+  .card h3 { display: flex; align-items: center; gap: 10px; font-size: 1.05rem; color: #1e3a8a; margin-bottom: 14px; }
+  .num { background: #3b82f6; color: white; min-width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: .9rem; }
+  .card p, .card li { font-size: .95rem; color: #374151; }
+  .card ul, .card ol { padding-left: 22px; margin-top: 8px; }
+  .card li { margin-bottom: 7px; }
+  pre { background: #1e2432; color: #cdd6f4; border-radius: 10px; padding: 16px 20px; overflow-x: auto; margin: 14px 0; font-size: .87rem; line-height: 1.7; }
+  code { background: #e8f0fe; color: #1e40af; padding: 2px 7px; border-radius: 5px; font-family: Consolas, monospace; font-size: .9rem; }
+  .alerta { background: #fef3c7; border-left: 5px solid #f59e0b; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: .93rem; }
+  .alerta strong { color: #92400e; }
+  .ok { background: #ecfdf5; border-left: 5px solid #10b981; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 16px 0; font-size: .93rem; }
+  .ok strong { color: #065f46; }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 8px 0; border-bottom: 1px solid #e2e8f0; display: flex; gap: 10px; align-items: flex-start; }
+  .checklist li:last-child { border-bottom: none; }
+  .check { color: #10b981; font-size: 1.1rem; margin-top: 2px; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .93rem; }
+  th { background: #1e3a8a; color: white; padding: 10px 14px; text-align: left; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) td { background: #f7fafc; }
+  footer { text-align: center; padding: 40px 20px; color: #718096; font-size: .88rem; }
+  @media (max-width: 600px) { .capa h1 { font-size: 1.7rem; } .card { padding: 18px; } pre { font-size: .8rem; } }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <div style="font-size:3rem; margin-bottom:10px;">🚀</div>
+  <h1>Publicar no GitHub Pages</h1>
+  <p>MissãoDoDiaKids — Guia completo para quem já tem outra página no GitHub</p>
+  <div class="badge">Firebase + GitHub Pages — 2ª página</div>
+</div>
+
+<div class="wrapper">
+
+  <div class="ok">
+    <strong>✅ Situação atual:</strong> Você já tem uma página no GitHub Pages e quer adicionar o MissãoDoDiaKids como um <strong>segundo repositório separado</strong>. O endereço final será:<br>
+    <code>https://SEU-USUARIO.github.io/missao-dia-kids/</code>
+  </div>
+
+  <!-- PRÉ-REQUISITOS -->
+  <h2 class="secao-titulo">Antes de começar — Checklist</h2>
+  <div class="card">
+    <ul class="checklist">
+      <li><span class="check">✅</span><span>Firebase configurado (Auth ativo, Firestore ativo, regras publicadas)</span></li>
+      <li><span class="check">✅</span><span><code>docs/js/db.js</code> com o <code>firebaseConfig</code> preenchido com seus dados</span></li>
+      <li><span class="check">✅</span><span>Git instalado no computador — verifique: abra o terminal e digite <code>git --version</code></span></li>
+      <li><span class="check">✅</span><span>Conta no GitHub já existente (a mesma da sua outra página)</span></li>
+      <li><span class="check">✅</span><span>Testou localmente e tudo está funcionando</span></li>
+    </ul>
+  </div>
+
+  <!-- PARTE 1 — CRIAR REPOSITÓRIO -->
+  <h2 class="secao-titulo">Parte 1 — Criar o repositório no GitHub</h2>
+
+  <div class="card">
+    <h3><div class="num">1</div> Criar o novo repositório</h3>
+    <ol>
+      <li>Acesse <strong>github.com</strong> e faça login</li>
+      <li>Clique no <strong>+</strong> (canto superior direito) → <strong>"New repository"</strong></li>
+      <li>Preencha:
+        <ul>
+          <li><strong>Repository name:</strong> <code>missao-dia-kids</code></li>
+          <li><strong>Visibility:</strong> Public (obrigatório para GitHub Pages gratuito)</li>
+          <li><strong>NÃO marque</strong> "Add a README file"</li>
+        </ul>
+      </li>
+      <li>Clique em <strong>"Create repository"</strong></li>
+    </ol>
+    <div class="alerta"><strong>⚠️ Nome importa!</strong> O nome do repositório vira parte da URL. Se usar <code>missao-dia-kids</code>, o site ficará em <code>https://SEU-USUARIO.github.io/missao-dia-kids/</code></div>
+  </div>
+
+  <!-- PARTE 2 — CONFIGURAR GIT LOCAL -->
+  <h2 class="secao-titulo">Parte 2 — Configurar o Git no projeto local</h2>
+
+  <div class="card">
+    <h3><div class="num">2</div> Abrir o terminal na pasta do projeto</h3>
+    <p>No VS Code, abra o terminal integrado ou abra o PowerShell e navegue até a pasta:</p>
+    <pre>cd "C:\MeusTrabalhos\Rotinas_criancas"</pre>
+  </div>
+
+  <div class="card">
+    <h3><div class="num">3</div> Inicializar o repositório Git</h3>
+    <p>Execute os comandos abaixo <strong>um por vez</strong>:</p>
+    <pre>git init
+git add docs/
+git commit -m "Primeira versão MissãoDoDiaKids"</pre>
+    <div class="alerta"><strong>⚠️ Atenção:</strong> Estamos adicionando <strong>apenas a pasta <code>docs/</code></strong> — ela contém o site estático. Os arquivos do servidor Node.js (<code>server.js</code>, <code>data/</code>, etc.) <strong>não devem ir</strong> para o GitHub Pages.</div>
+  </div>
+
+  <div class="card">
+    <h3><div class="num">4</div> Conectar ao repositório GitHub</h3>
+    <p>Substitua <code>SEU-USUARIO</code> pelo seu usuário do GitHub:</p>
+    <pre>git remote add origin https://github.com/SEU-USUARIO/missao-dia-kids.git
+git branch -M main
+git push -u origin main</pre>
+    <p style="margin-top:12px;">O GitHub pedirá seu <strong>usuário e senha</strong>. Para a senha, use um <strong>Personal Access Token</strong> (não a senha da conta — veja o próximo passo se necessário).</p>
+  </div>
+
+  <div class="card">
+    <h3><div class="num">5</div> Gerar Personal Access Token (se o push pedir senha)</h3>
+    <ol>
+      <li>GitHub → seu avatar → <strong>Settings</strong></li>
+      <li>Menu lateral → <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong></li>
+      <li>Clique em <strong>"Generate new token (classic)"</strong></li>
+      <li>Marque a permissão <strong><code>repo</code></strong></li>
+      <li>Clique em <strong>"Generate token"</strong> e <strong>copie o token</strong> (aparece só uma vez!)</li>
+      <li>Use o token no lugar da senha quando o Git pedir</li>
+    </ol>
+  </div>
+
+  <!-- PARTE 3 — ATIVAR GITHUB PAGES -->
+  <h2 class="secao-titulo">Parte 3 — Ativar o GitHub Pages</h2>
+
+  <div class="card">
+    <h3><div class="num">6</div> Configurar o Pages no repositório</h3>
+    <ol>
+      <li>Acesse seu repositório no GitHub: <code>github.com/SEU-USUARIO/missao-dia-kids</code></li>
+      <li>Clique na aba <strong>Settings</strong></li>
+      <li>No menu lateral, clique em <strong>Pages</strong></li>
+      <li>Em <strong>Source</strong>, selecione:
+        <ul>
+          <li><strong>Branch:</strong> <code>main</code></li>
+          <li><strong>Folder:</strong> <code>/docs</code></li>
+        </ul>
+      </li>
+      <li>Clique em <strong>Save</strong></li>
+    </ol>
+    <div class="ok"><strong>✅ Pronto!</strong> Em 1 a 3 minutos o site estará disponível em:<br><code>https://SEU-USUARIO.github.io/missao-dia-kids/</code></div>
+  </div>
+
+  <div class="card">
+    <h3><div class="num">7</div> Autorizar o domínio no Firebase</h3>
+    <p>O Firebase bloqueia autenticação de domínios não autorizados. Você precisa cadastrar a URL do seu site:</p>
+    <ol>
+      <li>Firebase Console → seu projeto → <strong>Authentication</strong></li>
+      <li>Aba <strong>"Settings"</strong> (ao lado de Users)</li>
+      <li>Role até <strong>"Authorized domains"</strong></li>
+      <li>Clique em <strong>"Add domain"</strong></li>
+      <li>Cole: <code>SEU-USUARIO.github.io</code></li>
+      <li>Clique em <strong>Add</strong></li>
+    </ol>
+    <div class="alerta"><strong>⚠️ Sem isso o login não vai funcionar!</strong> O Firebase vai rejeitar qualquer tentativa de login vinda do GitHub Pages se o domínio não estiver autorizado.</div>
+  </div>
+
+  <!-- PARTE 4 — ATUALIZAR -->
+  <h2 class="secao-titulo">Parte 4 — Como atualizar o site depois</h2>
+
+  <div class="card">
+    <h3><div class="num">8</div> Enviar atualizações para o GitHub</h3>
+    <p>Sempre que fizer alterações nos arquivos, execute no terminal (na pasta do projeto):</p>
+    <pre>cd "C:\MeusTrabalhos\Rotinas_criancas"
+git add docs/
+git commit -m "Descreva o que mudou aqui"
+git push</pre>
+    <p style="margin-top: 12px;">O GitHub Pages atualiza automaticamente em <strong>1 a 2 minutos</strong> após o push.</p>
+  </div>
+
+  <!-- PARTE 5 — VERIFICAR -->
+  <h2 class="secao-titulo">Parte 5 — Verificar se está funcionando</h2>
+
+  <div class="card">
+    <h3><div class="num">9</div> Checklist final após publicar</h3>
+    <ul class="checklist">
+      <li><span class="check">▢</span><span>Acessar <code>https://SEU-USUARIO.github.io/missao-dia-kids/</code> — deve abrir a tela de login</span></li>
+      <li><span class="check">▢</span><span>Criar uma conta de responsável — deve funcionar sem erro</span></li>
+      <li><span class="check">▢</span><span>Verificar no Firebase Console → Authentication → Users — o usuário deve aparecer</span></li>
+      <li><span class="check">▢</span><span>Cadastrar uma criança — deve aparecer no Firestore → coleção <code>rotinas</code></span></li>
+      <li><span class="check">▢</span><span>Acessar como criança — deve ver a rotina cadastrada</span></li>
+      <li><span class="check">▢</span><span>Marcar tarefas — deve salvar no Firestore → coleção <code>historico</code></span></li>
+    </ul>
+  </div>
+
+  <!-- ERROS COMUNS -->
+  <h2 class="secao-titulo">Erros comuns e soluções</h2>
+
+  <div class="card">
+    <table>
+      <tr><th>Erro</th><th>Causa</th><th>Solução</th></tr>
+      <tr><td>"auth/unauthorized-domain"</td><td>Domínio não autorizado no Firebase</td><td>Adicionar <code>SEU-USUARIO.github.io</code> nos Authorized domains (Passo 7)</td></tr>
+      <tr><td>Site abre mas fica em branco</td><td>Erro de JavaScript</td><td>Abrir F12 → Console → copiar o erro e procurar a causa</td></tr>
+      <tr><td>CSS não carrega</td><td>Caminhos errados</td><td>Verificar se os arquivos estão em <code>docs/css/</code></td></tr>
+      <tr><td>"Missing or insufficient permissions"</td><td>Regras do Firestore incorretas</td><td>Aplicar as regras do MANUAL_FIREBASE.html (Parte 3)</td></tr>
+      <tr><td>Push rejeitado</td><td>Token inválido ou sem permissão</td><td>Gerar novo token com permissão <code>repo</code> (Passo 5)</td></tr>
+      <tr><td>Página 404</td><td>Pages ainda não ativou ou pasta errada</td><td>Aguardar 3 min ou revisar a configuração (Passo 6)</td></tr>
+    </table>
+  </div>
+
+  <!-- RESUMO DOS COMANDOS -->
+  <h2 class="secao-titulo">Resumo — Todos os comandos Git</h2>
+  <div class="card">
+    <p><strong>Primeira vez (fazer apenas uma vez):</strong></p>
+    <pre>cd "C:\MeusTrabalhos\Rotinas_criancas"
+git init
+git add docs/
+git commit -m "Primeira versão MissãoDoDiaKids"
+git remote add origin https://github.com/SEU-USUARIO/missao-dia-kids.git
+git branch -M main
+git push -u origin main</pre>
+
+    <p style="margin-top: 20px;"><strong>Atualizações futuras:</strong></p>
+    <pre>cd "C:\MeusTrabalhos\Rotinas_criancas"
+git add docs/
+git commit -m "Descrição da atualização"
+git push</pre>
+  </div>
+
+</div>
+
+<footer>
+  <p>MissãoDoDiaKids &copy; 2026 — FKB Fit & Utilities Ltda</p>
+  <p style="margin-top: 6px;">Manual GitHub Pages — versão Firebase</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Uso — MissãoDoDiaKids</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", Arial, sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.7; }
+  .capa { background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%); color: white; text-align: center; padding: 60px 20px 50px; }
+  .capa .icon { font-size: 4rem; margin-bottom: 12px; }
+  .capa h1 { font-size: 2.4rem; margin-bottom: 8px; }
+  .capa p  { font-size: 1.1rem; opacity: .9; }
+  .badge { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 6px 18px; margin-top: 14px; font-size: .9rem; }
+  .wrapper { max-width: 860px; margin: 0 auto; padding: 30px 20px 80px; }
+  .secao-titulo { font-size: 1.4rem; color: #c2410c; border-bottom: 3px solid #f97316; padding-bottom: 8px; margin: 44px 0 22px; display: flex; align-items: center; gap: 10px; }
+  .card { background: white; border-radius: 14px; padding: 26px 30px; margin-bottom: 18px; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+  .card h3 { font-size: 1.05rem; color: #1a202c; margin-bottom: 14px; }
+  .card p, .card li { font-size: .95rem; color: #374151; margin-bottom: 8px; }
+  .passo-grid { display: grid; grid-template-columns: 36px 1fr; gap: 0 14px; align-items: start; margin: 10px 0; }
+  .num { background: #f97316; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: .9rem; flex-shrink: 0; margin-top: 2px; }
+  .num-azul  { background: #3b82f6; }
+  .num-verde { background: #10b981; }
+  .num-roxo  { background: #8b5cf6; }
+  .txt { padding-top: 6px; }
+  .alerta { background: #fff7ed; border-left: 5px solid #f97316; border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 14px 0; font-size: .9rem; }
+  .alerta strong { color: #c2410c; }
+  .ok { background: #f0fdf4; border-left: 5px solid #22c55e; border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 14px 0; font-size: .9rem; }
+  .ok strong { color: #15803d; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0; }
+  .flow-item { background: #f97316; color: white; border-radius: 8px; padding: 8px 14px; font-size: .88rem; font-weight: bold; }
+  .flow-arrow { color: #f97316; font-size: 1.3rem; font-weight: bold; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .92rem; }
+  th { background: #f97316; color: white; padding: 10px 14px; text-align: left; }
+  td { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+  tr:nth-child(even) td { background: #fafafa; }
+  footer { text-align: center; padding: 40px 20px; color: #718096; font-size: .88rem; }
+  @media (max-width:600px) { .capa h1 { font-size: 1.7rem; } .card { padding: 18px 16px; } }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <div class="icon">&#127775;</div>
+  <h1>Manual de Uso</h1>
+  <p>MissãoDoDiaKids — Guia completo para responsáveis e crianças</p>
+  <div class="badge">Versão Firebase — 2026</div>
+</div>
+
+<div class="wrapper">
+
+  <h2 class="secao-titulo">&#128065; O que é o MissãoDoDiaKids?</h2>
+  <div class="card">
+    <p>O <strong>MissãoDoDiaKids</strong> é um aplicativo web para gerenciar a rotina diária das crianças. Os responsáveis cadastram as tarefas, e as crianças marcam o que já fizeram de forma fácil e divertida.</p>
+    <p style="margin-top:12px"><strong>Onde os dados ficam salvos?</strong> No banco de dados Firebase (nuvem). Funciona em qualquer dispositivo com o mesmo login.</p>
+    <div class="flow">
+      <div class="flow-item">Celular</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">Firebase (Nuvem)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-item">Computador</div>
+    </div>
+  </div>
+
+  <h2 class="secao-titulo">&#128506; Fluxo de uso resumido</h2>
+  <div class="card">
+    <table>
+      <tr><th>Quem</th><th>O que faz</th><th>Onde</th></tr>
+      <tr><td><strong>Responsável</strong></td><td>Cria conta, cadastra PIN, crianças e rotinas</td><td>Painel do Responsável</td></tr>
+      <tr><td><strong>Criança</strong></td><td>Acessa pelo menu, seleciona seu nome e marca as tarefas do dia</td><td>Tela da Rotina</td></tr>
+      <tr><td><strong>Responsável</strong></td><td>Acompanha o histórico semanal de cada criança</td><td>Painel → Histórico</td></tr>
+    </table>
+  </div>
+
+  <!-- PARTE 1 -->
+  <h2 class="secao-titulo">1 — Primeiro Acesso: Criando sua conta</h2>
+
+  <div class="card">
+    <h3>Criar uma conta de responsável</h3>
+    <div class="passo-grid"><div class="num">1</div><div class="txt">Acesse o site e clique em <strong>"Cadastre-se aqui"</strong></div></div>
+    <div class="passo-grid"><div class="num">2</div><div class="txt">Preencha: nome completo, email e senha (mínimo 6 caracteres)</div></div>
+    <div class="passo-grid"><div class="num">3</div><div class="txt">Clique em <strong>"Criar Conta"</strong> — você será redirecionado para cadastrar o PIN</div></div>
+    <div class="ok"><strong>Conta criada no Firebase!</strong> Funciona em qualquer dispositivo com o mesmo email e senha.</div>
+  </div>
+
+  <div class="card">
+    <h3>Cadastrar PIN de segurança</h3>
+    <p>O PIN de 4 dígitos protege o acesso ao Painel do Responsável.</p>
+    <div class="passo-grid"><div class="num">1</div><div class="txt">Digite um PIN de 4 números</div></div>
+    <div class="passo-grid"><div class="num">2</div><div class="txt">Confirme o PIN e clique em <strong>"Cadastrar PIN"</strong></div></div>
+    <div class="alerta"><strong>Guarde bem seu PIN!</strong> Se esquecer, somente um administrador pode resetar pelo Firebase Console.</div>
+  </div>
+
+  <div class="card">
+    <h3>Fazer login nas próximas vezes</h3>
+    <div class="passo-grid"><div class="num">1</div><div class="txt">Na tela inicial, insira seu <strong>email</strong> e <strong>senha</strong></div></div>
+    <div class="passo-grid"><div class="num">2</div><div class="txt">Clique em <strong>"Entrar"</strong> — você vai direto ao Menu Principal</div></div>
+    <p style="margin-top:12px">A sessão fica guardada, então não é preciso fazer login toda vez no mesmo dispositivo.</p>
+  </div>
+
+  <!-- PARTE 2 -->
+  <h2 class="secao-titulo">2 — Cadastrar Crianças e Rotinas</h2>
+
+  <div class="card">
+    <h3>Acessar o Painel do Responsável</h3>
+    <div class="passo-grid"><div class="num num-azul">1</div><div class="txt">No Menu Principal, clique em <strong>"Área dos Responsáveis"</strong></div></div>
+    <div class="passo-grid"><div class="num num-azul">2</div><div class="txt">Digite o PIN de 4 dígitos para entrar</div></div>
+    <div class="passo-grid"><div class="num num-azul">3</div><div class="txt">O Painel exibe todas as crianças e rotinas cadastradas</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Criar uma nova rotina</h3>
+    <div class="passo-grid"><div class="num num-azul">1</div><div class="txt">No Painel, clique em <strong>"+ Nova Rotina"</strong></div></div>
+    <div class="passo-grid"><div class="num num-azul">2</div><div class="txt">Preencha: nome, sobrenome (opcional), ano de nascimento e gênero da criança</div></div>
+    <div class="passo-grid"><div class="num num-azul">3</div><div class="txt">Selecione os <strong>dias da semana</strong> em que a rotina se aplica</div></div>
+    <div class="passo-grid"><div class="num num-azul">4</div><div class="txt">Adicione seções e atividades (veja abaixo)</div></div>
+    <div class="passo-grid"><div class="num num-azul">5</div><div class="txt">Clique em <strong>"Salvar Rotina"</strong></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Organizar tarefas em seções</h3>
+    <p>Crie blocos como "Manhã", "Tarde" e "Noite" para organizar melhor a rotina.</p>
+    <div class="passo-grid"><div class="num num-azul">1</div><div class="txt">Clique em <strong>"+ Adicionar Seção"</strong> e dê um nome (ex: "Manhã")</div></div>
+    <div class="passo-grid"><div class="num num-azul">2</div><div class="txt">Dentro da seção, clique em <strong>"+ Adicionar Atividade"</strong></div></div>
+    <div class="passo-grid"><div class="num num-azul">3</div><div class="txt">Escolha uma da lista pré-definida ou crie uma personalizada com emoji</div></div>
+    <div class="ok"><strong>Dica:</strong> Use "Sugestões por Faixa Etária" para carregar atividades recomendadas para a idade da criança automaticamente.</div>
+  </div>
+
+  <div class="card">
+    <h3>Ativar sistema de recompensas (opcional)</h3>
+    <p>A criança acumula pontos ao concluir tarefas e pode ver um cofrinho virtual.</p>
+    <div class="passo-grid"><div class="num num-azul">1</div><div class="txt">No formulário, marque <strong>"Usar sistema de recompensas"</strong></div></div>
+    <div class="passo-grid"><div class="num num-azul">2</div><div class="txt">Defina quantos pontos cada tarefa vale</div></div>
+    <div class="passo-grid"><div class="num num-azul">3</div><div class="txt">Salve normalmente</div></div>
+  </div>
+
+  <!-- PARTE 3 -->
+  <h2 class="secao-titulo">3 — Acesso das Crianças</h2>
+
+  <div class="card">
+    <h3>Como a criança acessa e marca as tarefas</h3>
+    <div class="passo-grid"><div class="num num-verde">1</div><div class="txt">No Menu Principal, clique em <strong>"Área das Crianças"</strong></div></div>
+    <div class="passo-grid"><div class="num num-verde">2</div><div class="txt">A lista com os nomes cadastrados aparece — clique no nome</div></div>
+    <div class="passo-grid"><div class="num num-verde">3</div><div class="txt">A tela da rotina do dia abre com todas as tarefas</div></div>
+    <div class="passo-grid"><div class="num num-verde">4</div><div class="txt">Toque em cada tarefa para marcar como concluída</div></div>
+    <div class="passo-grid"><div class="num num-verde">5</div><div class="txt">O progresso é salvo automaticamente a cada marcação</div></div>
+    <div class="alerta"><strong>Importante:</strong> O responsável precisa estar logado no dispositivo. Se aparecer "Os pais precisam fazer login primeiro", acesse a tela de login dos responsáveis.</div>
+  </div>
+
+  <div class="card">
+    <h3>Navegar pelos dias da semana</h3>
+    <p>A tela abre automaticamente no dia atual. A criança pode tocar nas abas no topo para ver outros dias. Apenas os dias configurados na rotina ficam disponíveis.</p>
+  </div>
+
+  <!-- PARTE 4 -->
+  <h2 class="secao-titulo">4 — Gerenciar Rotinas no Painel</h2>
+
+  <div class="card">
+    <h3>Editar uma rotina existente</h3>
+    <div class="passo-grid"><div class="num num-roxo">1</div><div class="txt">No Painel, clique em <strong>"Editar"</strong> na rotina desejada</div></div>
+    <div class="passo-grid"><div class="num num-roxo">2</div><div class="txt">Faça as alterações desejadas — tarefas, dias, seções</div></div>
+    <div class="passo-grid"><div class="num num-roxo">3</div><div class="txt">Clique em <strong>"Salvar Rotina"</strong></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Ver histórico semanal</h3>
+    <div class="passo-grid"><div class="num num-roxo">1</div><div class="txt">No Painel, clique em <strong>"Ver"</strong> na rotina desejada</div></div>
+    <div class="passo-grid"><div class="num num-roxo">2</div><div class="txt">Na tela da rotina, clique em <strong>"Ver Histórico"</strong></div></div>
+    <div class="passo-grid"><div class="num num-roxo">3</div><div class="txt">Visualize semana a semana com o percentual de conclusão</div></div>
+    <div class="passo-grid"><div class="num num-roxo">4</div><div class="txt">Clique em qualquer semana para ver o detalhe dia a dia</div></div>
+  </div>
+
+  <div class="card">
+    <h3>Excluir uma rotina</h3>
+    <div class="passo-grid"><div class="num num-roxo">1</div><div class="txt">No Painel, clique em <strong>"Excluir"</strong> na rotina desejada</div></div>
+    <div class="passo-grid"><div class="num num-roxo">2</div><div class="txt">Confirme a exclusão na caixa de diálogo</div></div>
+    <div class="alerta"><strong>Atenção:</strong> A exclusão apaga também todo o histórico da criança. Esta ação não pode ser desfeita.</div>
+  </div>
+
+  <!-- PARTE 5 -->
+  <h2 class="secao-titulo">5 — Gerenciar sua Conta</h2>
+
+  <div class="card">
+    <h3>Esqueci minha senha</h3>
+    <div class="passo-grid"><div class="num">1</div><div class="txt">Na tela de login, clique em <strong>"Esqueci minha senha"</strong></div></div>
+    <div class="passo-grid"><div class="num">2</div><div class="txt">Digite seu email cadastrado e clique em <strong>"Enviar Link"</strong></div></div>
+    <div class="passo-grid"><div class="num">3</div><div class="txt">Verifique sua caixa de entrada — chegará um email em <strong>português</strong> com um link de redefinição</div></div>
+    <div class="passo-grid"><div class="num">4</div><div class="txt">Clique no link, defina a nova senha e faça login normalmente</div></div>
+    <div class="ok">O link é enviado pelo Firebase com segurança e expira em 1 hora.</div>
+  </div>
+
+  <div class="card">
+    <h3>Alterar senha (quando já logado)</h3>
+    <div class="passo-grid"><div class="num">1</div><div class="txt">No Menu Principal, acesse <strong>"Configurações da Conta"</strong></div></div>
+    <div class="passo-grid"><div class="num">2</div><div class="txt">Preencha a senha atual e a nova senha (mínimo 6 caracteres)</div></div>
+    <div class="passo-grid"><div class="num">3</div><div class="txt">Clique em <strong>"Alterar Senha"</strong></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Sair da conta (logout)</h3>
+    <p>No Menu Principal, clique em <strong>"Sair"</strong>. O aplicativo volta para a tela de login e os dados das crianças ficam protegidos.</p>
+  </div>
+
+  <!-- FAQ -->
+  <h2 class="secao-titulo">Perguntas Frequentes</h2>
+
+  <div class="card">
+    <table>
+      <tr><th>Pergunta</th><th>Resposta</th></tr>
+      <tr><td><strong>Funciona no celular?</strong></td><td>Sim! O site é responsivo e funciona em celulares, tablets e computadores.</td></tr>
+      <tr><td><strong>Precisa instalar algo?</strong></td><td>Não. Abre direto no navegador (Chrome, Safari, Edge…).</td></tr>
+      <tr><td><strong>Os dados somem se fechar o navegador?</strong></td><td>Não. Ficam no Firebase (nuvem) e a sessão do responsável é mantida.</td></tr>
+      <tr><td><strong>Funciona em vários dispositivos?</strong></td><td>Sim. O mesmo login funciona em qualquer dispositivo com dados sincronizados.</td></tr>
+      <tr><td><strong>Quantas crianças posso cadastrar?</strong></td><td>Não há limite definido.</td></tr>
+      <tr><td><strong>Esqueci o PIN, o que faço?</strong></td><td>Entre em contato com o administrador para resetar o pinHash pelo Firebase Console.</td></tr>
+      <tr><td><strong>A criança precisa de login?</strong></td><td>Não. Só precisa que o responsável esteja logado no dispositivo.</td></tr>
+      <tr><td><strong>Excluir rotina apaga o histórico?</strong></td><td>Sim. A exclusão também apaga todos os registros históricos da criança.</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<footer>
+  <p>MissãoDoDiaKids &copy; 2026 — FKB Fit &amp; Utilities Ltda</p>
+  <p style="margin-top:6px;">Manual de Uso — versão Firebase</p>
+</footer>
+
+</body>
+</html>

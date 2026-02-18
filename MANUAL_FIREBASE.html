@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Firebase — MissãoDoDiaKids</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f4f8; color: #1a202c; line-height: 1.7; }
+
+  .capa { background: linear-gradient(135deg, #ff6b00 0%, #ff9500 100%); color: white; text-align: center; padding: 60px 20px 50px; }
+  .capa h1 { font-size: 2.4rem; margin-bottom: 12px; }
+  .capa p  { font-size: 1.1rem; opacity: .9; }
+  .badge   { display: inline-block; background: rgba(255,255,255,.2); border-radius: 20px; padding: 6px 18px; margin-top: 18px; font-size: .9rem; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 20px; }
+
+  /* Índice */
+  .indice { background: white; border-radius: 14px; padding: 28px 32px; margin: 30px 0; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+  .indice h2 { color: #ff6b00; margin-bottom: 16px; font-size: 1.2rem; }
+  .indice ol { padding-left: 22px; }
+  .indice li { margin: 6px 0; }
+  .indice a  { color: #2d6a9f; text-decoration: none; }
+  .indice a:hover { text-decoration: underline; }
+
+  /* Seções */
+  .secao { background: white; border-radius: 14px; padding: 30px 32px; margin: 24px 0; box-shadow: 0 2px 12px rgba(0,0,0,.07); }
+  .secao h2 { font-size: 1.5rem; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 3px solid #ff6b00; color: #1a202c; }
+  .secao h3 { font-size: 1.1rem; color: #2d6a9f; margin: 22px 0 10px; }
+  .secao p  { margin-bottom: 14px; }
+  .secao ul, .secao ol { margin: 10px 0 16px 24px; }
+  .secao li { margin: 7px 0; }
+
+  /* Aviso destaque */
+  .alerta { background: #fff8e1; border-left: 5px solid #ff9500; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 18px 0; }
+  .alerta strong { color: #e65c00; }
+  .dica   { background: #e8f5e9; border-left: 5px solid #43a047; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 18px 0; }
+  .dica strong { color: #2e7d32; }
+  .perigo { background: #ffebee; border-left: 5px solid #e53935; border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 18px 0; }
+  .perigo strong { color: #c62828; }
+
+  /* Código */
+  pre { background: #1e2432; color: #cdd6f4; border-radius: 10px; padding: 18px 20px; overflow-x: auto; margin: 14px 0; font-size: .88rem; line-height: 1.6; }
+  code { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: .9rem; background: #edf2f7; padding: 2px 7px; border-radius: 5px; color: #c0392b; }
+
+  /* Passos numerados */
+  .passo { display: flex; gap: 16px; margin: 14px 0; align-items: flex-start; }
+  .num   { background: #ff6b00; color: white; border-radius: 50%; width: 32px; height: 32px; min-width: 32px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: .9rem; }
+  .passo-txt { flex: 1; padding-top: 5px; }
+
+  /* Tabela */
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: .93rem; }
+  th    { background: #ff6b00; color: white; padding: 10px 14px; text-align: left; }
+  td    { padding: 10px 14px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) td { background: #f7fafc; }
+
+  /* Estrutura Firestore */
+  .tree { background: #f7f9fc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 18px 22px; font-family: monospace; font-size: .9rem; margin: 14px 0; line-height: 2; }
+  .tree .col   { color: #2d6a9f; font-weight: bold; }
+  .tree .doc   { color: #e65c00; margin-left: 20px; }
+  .tree .field { color: #2e7d32; margin-left: 40px; font-size: .85rem; }
+
+  /* Rodapé */
+  footer { text-align: center; padding: 40px 20px; color: #718096; font-size: .88rem; }
+
+  @media (max-width: 600px) {
+    .capa h1 { font-size: 1.7rem; }
+    .secao, .indice { padding: 20px 18px; }
+    pre { font-size: .8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="capa">
+  <div style="font-size:3.5rem; margin-bottom:12px;">🔥</div>
+  <h1>Manual Firebase</h1>
+  <p>MissãoDoDiaKids — Configuração e Manutenção do Banco de Dados</p>
+  <div class="badge">Versão 2.0 — Firebase Auth + Firestore</div>
+</div>
+
+<div class="container">
+
+  <!-- ÍNDICE -->
+  <div class="indice">
+    <h2>📋 Índice</h2>
+    <ol>
+      <li><a href="#parte1">Criar e configurar o projeto Firebase</a></li>
+      <li><a href="#parte2">Preencher o firebaseConfig no código</a></li>
+      <li><a href="#parte3">Regras de segurança do Firestore</a></li>
+      <li><a href="#parte4">Estrutura dos dados no Firestore</a></li>
+      <li><a href="#parte5">Gerenciar usuários (responsáveis)</a></li>
+      <li><a href="#parte6">Visualizar e editar rotinas</a></li>
+      <li><a href="#parte7">Visualizar e editar histórico</a></li>
+      <li><a href="#parte8">Backup e exportação dos dados</a></li>
+      <li><a href="#parte9">Restaurar dados / migrar do localStorage</a></li>
+      <li><a href="#parte10">Limites gratuitos do Firebase</a></li>
+      <li><a href="#parte11">Documentação Técnica — db.js (objetos e funções)</a></li>
+    </ol>
+  </div>
+
+  <!-- PARTE 1 -->
+  <div class="secao" id="parte1">
+    <h2>1. Criar e configurar o projeto Firebase</h2>
+
+    <div class="alerta"><strong>⚠️ Faça isso uma única vez.</strong> Depois que o projeto Firebase estiver criado, você só precisa copiar as configurações para o código.</div>
+
+    <h3>1.1 — Criar o Projeto</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Acesse <strong>https://console.firebase.google.com</strong> e faça login com sua conta Google.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique em <strong>"Adicionar projeto"</strong>. Dê o nome <code>missao-dia-kids</code> (ou qualquer nome).</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Desative o Google Analytics (não é necessário para este projeto) e clique em <strong>"Criar projeto"</strong>.</div></div>
+
+    <h3>1.2 — Ativar Authentication</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">No menu lateral do Firebase Console, clique em <strong>Build → Authentication</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique em <strong>"Primeiros passos"</strong>.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Na aba <strong>"Sign-in method"</strong>, clique em <strong>"E-mail/senha"</strong> → ative → salve.</div></div>
+
+    <h3>1.3 — Criar o Banco de Dados Firestore</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">No menu lateral, clique em <strong>Build → Firestore Database</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique em <strong>"Criar banco de dados"</strong>.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Escolha o modo <strong>"Produção"</strong> (você vai configurar as regras no Passo 3).</div></div>
+    <div class="passo"><div class="num">4</div><div class="passo-txt">Escolha a região <strong>southamerica-east1 (São Paulo)</strong> e clique em <strong>"Ativar"</strong>.</div></div>
+
+    <h3>1.4 — Obter as credenciais (firebaseConfig)</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">No menu lateral, clique na <strong>engrenagem ⚙️ → Configurações do projeto</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Role a página até <strong>"Seus apps"</strong>. Clique no ícone <code>&lt;/&gt;</code> (Web).</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Dê um apelido ao app (ex: <code>site-rotinas</code>) e clique em <strong>"Registrar app"</strong>.</div></div>
+    <div class="passo"><div class="num">4</div><div class="passo-txt">Você verá um bloco de código com <code>firebaseConfig</code>. <strong>Copie os valores</strong> para o próximo passo.</div></div>
+  </div>
+
+  <!-- PARTE 2 -->
+  <div class="secao" id="parte2">
+    <h2>2. Preencher o firebaseConfig no código</h2>
+
+    <p>Abra o arquivo <code>docs/js/db.js</code> e substitua os valores <code>"COLE_AQUI"</code> pelos dados copiados do Firebase Console:</p>
+
+    <pre>const firebaseConfig = {
+    apiKey:            "AIzaSyAb1cDe2fGh3iJk4lMn5oP6qRs7tUv8wXy",   // ← cole o seu
+    authDomain:        "missao-dia-kids.firebaseapp.com",
+    projectId:         "missao-dia-kids",
+    storageBucket:     "missao-dia-kids.appspot.com",
+    messagingSenderId: "123456789012",
+    appId:             "1:123456789012:web:abc123def456"
+};</pre>
+
+    <div class="dica"><strong>✅ Dica:</strong> Esses valores <strong>não são senhas</strong> — é seguro deixá-los no código HTML público. A segurança real é feita pelas <em>Regras do Firestore</em> (próximo passo).</div>
+
+    <p>Após editar o arquivo, você deve refazer o upload para o GitHub (ou qualquer outra hospedagem). Os valores precisam estar corretos para o site funcionar.</p>
+
+    <h3>Como testar localmente após configurar</h3>
+    <p>Execute no terminal, dentro da pasta do projeto:</p>
+    <pre>node servidor-teste.js</pre>
+    <p>Acesse <code>http://localhost:5500</code> e tente criar uma conta. Se funcionar, o Firebase está configurado corretamente.</p>
+  </div>
+
+  <!-- PARTE 3 -->
+  <div class="secao" id="parte3">
+    <h2>3. Regras de segurança do Firestore</h2>
+
+    <p>As regras controlam quem pode ler e gravar dados. Configure assim:</p>
+
+    <div class="passo"><div class="num">1</div><div class="passo-txt">No Firebase Console → <strong>Firestore Database → Regras</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Substitua todo o conteúdo pelo código abaixo e clique em <strong>"Publicar"</strong>.</div></div>
+
+    <pre>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Perfil do responsável — só ele mesmo pode acessar
+    match /usuarios/{userId} {
+      allow read, write: if request.auth != null
+                         && request.auth.uid == userId;
+    }
+
+    // Rotinas — responsável cria/edita/deleta as suas;
+    // qualquer um pode ler (necessário para as crianças buscarem pelo nome)
+    match /rotinas/{rotinaId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null
+                            && request.auth.uid == resource.data.usuarioId;
+    }
+
+    // Histórico — crianças salvam sem login, todos podem ler
+    match /historico/{historicoId} {
+      allow read, write: if true;
+    }
+
+  }
+}</pre>
+
+    <div class="alerta"><strong>⚠️ Por que rotinas e histórico são públicos?</strong><br>As crianças não fazem login com email/senha — elas só digitam o nome delas. Por isso, precisamos permitir leitura pública das rotinas e escrita pública do histórico. A segurança está no fato de que apenas o responsável logado pode <em>criar, editar ou deletar</em> rotinas.</div>
+  </div>
+
+  <!-- PARTE 4 -->
+  <div class="secao" id="parte4">
+    <h2>4. Estrutura dos dados no Firestore</h2>
+
+    <p>O Firestore organiza os dados em <strong>coleções</strong> (como pastas) e <strong>documentos</strong> (como arquivos). O app usa 3 coleções:</p>
+
+    <div class="tree">
+      <span class="col">📁 usuarios/</span><br>
+      <span class="doc">📄 {uid do Firebase Auth}</span><br>
+      <span class="field">nome: "Maria Silva"</span><br>
+      <span class="field">email: "maria@email.com"</span><br>
+      <span class="field">pinHash: "abc123..." (SHA-256 do PIN de 4 dígitos)</span><br>
+      <span class="field">criadoEm: "2026-02-17T10:00:00.000Z"</span><br>
+      <br>
+      <span class="col">📁 rotinas/</span><br>
+      <span class="doc">📄 {id automático Firestore}</span><br>
+      <span class="field">usuarioId: "uid do responsável"</span><br>
+      <span class="field">criancaNome: "Ana"</span><br>
+      <span class="field">criancaSobrenome: "Silva"</span><br>
+      <span class="field">criancaAnoNascimento: 2017</span><br>
+      <span class="field">criancaGenero: "F"</span><br>
+      <span class="field">diasSemana: [1, 2, 3, 4, 5]</span><br>
+      <span class="field">atividades: [ {id, nome, emoji, ...}, ... ]</span><br>
+      <span class="field">usarRecompensas: true</span><br>
+      <span class="field">criadoEm: "2026-02-17T10:00:00.000Z"</span><br>
+      <br>
+      <span class="col">📁 historico/</span><br>
+      <span class="doc">📄 {rotinaId}_{anoSemana}  (ex: "abc123_2026-07")</span><br>
+      <span class="field">rotinaId: "abc123"</span><br>
+      <span class="field">semanaId: "2026-07"</span><br>
+      <span class="field">inicioSemana: "09/02/2026"</span><br>
+      <span class="field">fimSemana: "15/02/2026"</span><br>
+      <span class="field">progresso: { "segunda": {tarefa1: true, ...}, ... }</span><br>
+      <span class="field">salvoEm: "2026-02-15T19:30:00.000Z"</span>
+    </div>
+  </div>
+
+  <!-- PARTE 5 -->
+  <div class="secao" id="parte5">
+    <h2>5. Gerenciar usuários (responsáveis)</h2>
+
+    <h3>Ver todos os usuários cadastrados</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firebase Console → <strong>Authentication → Users</strong>.</div></div>
+    <p>Você verá email, data de cadastro, último login e o UID (identificador único de cada responsável).</p>
+
+    <h3>Redefinir senha de um responsável</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Na lista de usuários, clique nos <strong>3 pontinhos</strong> ao lado do email desejado.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique em <strong>"Enviar e-mail de redefinição de senha"</strong>. O responsável receberá um email da Google para criar nova senha.</div></div>
+
+    <h3>Excluir um responsável (e todos os dados)</h3>
+    <div class="perigo"><strong>🚨 Atenção:</strong> Excluir um usuário do Authentication <strong>não exclui automaticamente</strong> as rotinas e históricos dele no Firestore. Você precisará excluir manualmente na seção de dados (abaixo).</div>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Authentication → Users → 3 pontinhos → <strong>"Excluir conta"</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Anote o UID antes de excluir.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Vá em Firestore → coleção <code>usuarios</code> → exclua o documento com o UID.</div></div>
+    <div class="passo"><div class="num">4</div><div class="passo-txt">Vá em Firestore → coleção <code>rotinas</code> → exclua todos os documentos onde <code>usuarioId == UID</code>.</div></div>
+
+    <h3>Alterar o PIN de uma criança (emergência)</h3>
+    <p>O PIN fica no Firestore, não no Authentication. Para resetar:</p>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firestore → <code>usuarios</code> → documento do responsável → campo <code>pinHash</code>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique no lápis e altere o valor para <code>null</code>. Isso remove o PIN para que o responsável possa cadastrar um novo pelo app.</div></div>
+  </div>
+
+  <!-- PARTE 6 -->
+  <div class="secao" id="parte6">
+    <h2>6. Visualizar e editar rotinas</h2>
+
+    <h3>Ver as rotinas de uma criança</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firebase Console → <strong>Firestore Database</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique na coleção <code>rotinas</code>.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Você verá todos os documentos. Clique em qualquer um para ver os campos (<code>criancaNome</code>, <code>atividades</code>, etc.).</div></div>
+    <div class="passo"><div class="num">4</div><div class="passo-txt">Use o botão <strong>"Filtrar"</strong> (ícone de funil) → <code>criancaNome == "Ana"</code> para encontrar uma criança específica.</div></div>
+
+    <h3>Editar um campo diretamente</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Abra o documento desejado.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Passe o mouse sobre o campo e clique no <strong>lápis ✏️</strong> que aparece.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Edite o valor e clique em <strong>"Atualizar"</strong>.</div></div>
+
+    <h3>Excluir uma rotina</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Abra o documento da rotina.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique no menu (3 pontinhos) no canto superior direito do documento → <strong>"Excluir documento"</strong>.</div></div>
+
+    <div class="dica"><strong>💡 Dica:</strong> Se quiser corrigir o nome de uma criança, basta editar o campo <code>criancaNome</code> diretamente no Firestore. O app vai refletir a mudança automaticamente.</div>
+  </div>
+
+  <!-- PARTE 7 -->
+  <div class="secao" id="parte7">
+    <h2>7. Visualizar e editar histórico</h2>
+
+    <p>O histórico fica na coleção <code>historico</code>. Cada documento representa <strong>uma semana de uma criança</strong>.</p>
+
+    <h3>Encontrar o histórico de uma criança</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Você precisa saber o ID da rotina da criança (está na coleção <code>rotinas</code>, é o ID do documento).</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Na coleção <code>historico</code>, filtre por <code>rotinaId == "ID_DA_ROTINA"</code>.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Os documentos têm o formato <code>{rotinaId}_{anoSemana}</code>, como <code>abc123_2026-07</code>.</div></div>
+
+    <h3>Entender o campo progresso</h3>
+    <p>O campo <code>progresso</code> é um objeto JSON como:</p>
+    <pre>{
+  "segunda": { "Escovar os dentes": true, "Arrumar o quarto": false },
+  "terca":   { "Escovar os dentes": true, "Arrumar o quarto": true  },
+  "quarta":  { ... }
+}</pre>
+
+    <h3>Limpar o histórico de uma criança</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Filtre os documentos por <code>rotinaId</code> da criança.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Selecione e exclua os documentos desejados.</div></div>
+
+    <div class="dica"><strong>💡 O histórico não ocupa espaço significativo</strong> — cada semana de uma criança é um documento muito pequeno. Você não precisará limpar com frequência.</div>
+  </div>
+
+  <!-- PARTE 8 -->
+  <div class="secao" id="parte8">
+    <h2>8. Backup e exportação dos dados</h2>
+
+    <h3>Exportar via Firebase Console (método mais simples)</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firebase Console → <strong>Firestore Database → Importar/exportar</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Clique em <strong>"Exportar"</strong> → escolha um destino no Google Cloud Storage (você precisará criar um bucket gratuito).</div></div>
+
+    <h3>Exportar manualmente (sem Cloud Storage) — método alternativo</h3>
+    <p>Instale o Firebase CLI e rode:</p>
+    <pre>npm install -g firebase-tools
+firebase login
+firebase firestore:export ./backup-firestore --project SEU-PROJECT-ID</pre>
+    <p>Isso cria uma pasta local com todos os dados exportados em formato binário.</p>
+
+    <h3>Backup simples — copiar dados pelo console</h3>
+    <p>Para backups rápidos de tabelas pequenas:</p>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Abra cada coleção no Firestore Console.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Abra o console do navegador (F12) e copie os dados com JavaScript:</div></div>
+    <pre>// Cole no console do navegador, na página do Firebase Console
+// (apenas para visualização rápida - não é um backup oficial)</pre>
+
+    <div class="dica"><strong>💡 Recomendação:</strong> Para este projeto familiar pequeno, um backup mensal manual (imagem de tela ou exportação via CLI) é mais que suficiente.</div>
+  </div>
+
+  <!-- PARTE 9 -->
+  <div class="secao" id="parte9">
+    <h2>9. Restaurar dados / migrar do localStorage</h2>
+
+    <p>Se você tinha dados salvos na versão anterior (localStorage), eles <strong>não migram automaticamente</strong>. Você precisará recadastrar os responsáveis e as rotinas pelo próprio app.</p>
+
+    <h3>Estratégia de migração</h3>
+    <table>
+      <tr><th>O que fazer</th><th>Como fazer</th></tr>
+      <tr><td>Criar conta do responsável</td><td>Acessar o site e usar "Criar conta" normalmente</td></tr>
+      <tr><td>Recadastrar rotinas das crianças</td><td>Usar o Painel do Responsável → "Nova criança"</td></tr>
+      <tr><td>Histórico antigo</td><td>Não é possível migrar automaticamente — começa do zero</td></tr>
+    </table>
+
+    <div class="alerta"><strong>⚠️ O localStorage só existe no navegador onde estava sendo usado.</strong> Se quiser ver os dados antigos, abra o site pelo servidor local (<code>node servidor-teste.js</code>) no mesmo computador e navegador de antes.</div>
+
+    <h3>Como inserir dados diretamente no Firestore (avançado)</h3>
+    <p>Se precisar inserir várias rotinas de uma vez, use o Firebase Console:</p>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firestore → coleção <code>rotinas</code> → <strong>"Adicionar documento"</strong>.</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Deixe o ID como <strong>automático</strong>.</div></div>
+    <div class="passo"><div class="num">3</div><div class="passo-txt">Adicione os campos: <code>usuarioId</code> (copie do Authentication), <code>criancaNome</code>, <code>criancaGenero</code>, etc.</div></div>
+  </div>
+
+  <!-- PARTE 10 -->
+  <div class="secao" id="parte10">
+    <h2>10. Limites gratuitos do Firebase</h2>
+
+    <p>O plano gratuito <strong>Spark</strong> é suficiente para uso familiar. Veja os limites:</p>
+
+    <table>
+      <tr><th>Recurso</th><th>Limite Gratuito</th><th>Para este App</th></tr>
+      <tr><td>Usuários (Authentication)</td><td>Ilimitado</td><td>✅ Tranquilo</td></tr>
+      <tr><td>Leituras Firestore / dia</td><td>50.000</td><td>✅ Uma família usa &lt; 500/dia</td></tr>
+      <tr><td>Gravações Firestore / dia</td><td>20.000</td><td>✅ Tranquilo</td></tr>
+      <tr><td>Armazenamento Firestore</td><td>1 GB</td><td>✅ Anos de uso não chegarão a 1 MB</td></tr>
+      <tr><td>Tráfego de rede</td><td>10 GB / mês</td><td>✅ Muito acima do necessário</td></tr>
+    </table>
+
+    <div class="dica"><strong>✅ Conclusão:</strong> Para uma família (ou até algumas famílias), o Firebase gratuito nunca será excedido. Não é necessário pagar nada.</div>
+
+    <h3>Monitorar o uso</h3>
+    <div class="passo"><div class="num">1</div><div class="passo-txt">Firebase Console → <strong>Uso e cobrança</strong> (ícone de gráfico no menu lateral).</div></div>
+    <div class="passo"><div class="num">2</div><div class="passo-txt">Você verá o consumo de leituras, gravações e armazenamento em tempo real.</div></div>
+  </div>
+
+  <!-- DOCUMENTAÇÃO TÉCNICA db.js -->
+  <div class="secao" id="parte11">
+    <h2>11. Documentação Técnica — db.js</h2>
+
+    <p>O arquivo <code>docs/js/db.js</code> é a peça central da versão GitHub Pages. Ele <strong>intercepta todas as chamadas <code>fetch('/api/...')</code></strong> feitas pelos outros arquivos JS e as redireciona ao Firebase, sem alterar nenhum outro arquivo do projeto.</p>
+
+    <div class="dica"><strong>Por que interceptar o fetch?</strong> O código original (server.js) usava fetch para chamar uma API Node.js. Em vez de reescrever todos os outros arquivos, db.js sobrescreve <code>window.fetch</code> e responde no lugar da API. Os outros arquivos nem sabem que estão usando Firebase.</div>
+
+    <h3>Objetos globais</h3>
+    <table>
+      <tr><th>Objeto</th><th>O que é</th><th>Como é usado</th></tr>
+      <tr>
+        <td><code>firebaseConfig</code></td>
+        <td>Objeto literal com as credenciais do projeto Firebase (apiKey, authDomain, projectId, etc.)</td>
+        <td>Passado para <code>firebase.initializeApp()</code> — autentica o SDK com o projeto correto</td>
+      </tr>
+      <tr>
+        <td><code>auth</code></td>
+        <td>Instância do Firebase Authentication (<code>firebase.auth()</code>)</td>
+        <td>Usado em todas as operações de login, logout, cadastro e recuperação de senha. Mantém a sessão ativa com persistência LOCAL.</td>
+      </tr>
+      <tr>
+        <td><code>dbF</code></td>
+        <td>Instância do Firestore (<code>firebase.firestore()</code>)</td>
+        <td>Usado em todas as operações de leitura e escrita nas coleções <code>usuarios</code>, <code>rotinas</code> e <code>historico</code></td>
+      </tr>
+      <tr>
+        <td><code>_fetchOriginal</code></td>
+        <td>Referência ao <code>window.fetch</code> nativo, salva antes da sobrescrita</td>
+        <td>Chamado para URLs que não começam com <code>/api/</code> (ex: buscar imagens, fontes, etc.) para não interferir com o comportamento normal do navegador</td>
+      </tr>
+    </table>
+
+    <h3>Funções utilitárias</h3>
+    <table>
+      <tr><th>Função</th><th>Parâmetro(s)</th><th>Retorno</th><th>Descrição</th></tr>
+      <tr>
+        <td><code>hashTexto(texto)</code></td>
+        <td><code>texto: string</code></td>
+        <td>Promise&lt;string&gt; hex SHA-256</td>
+        <td>Converte o PIN de 4 dígitos num hash de 64 caracteres usando a Web Crypto API nativa do navegador. O PIN nunca fica salvo em texto claro — só o hash vai ao Firestore.</td>
+      </tr>
+      <tr>
+        <td><code>mockResponse(dados, status)</code></td>
+        <td><code>dados: object</code>, <code>status: number</code> (padrão 200)</td>
+        <td>Objeto que imita o <code>Response</code> do fetch nativo</td>
+        <td>Cria um objeto com <code>.ok</code>, <code>.status</code> e <code>.json()</code> que os outros arquivos JS utilizarão como se fosse uma resposta HTTP real.</td>
+      </tr>
+      <tr>
+        <td><code>aguardarAuthPronto()</code></td>
+        <td>nenhum</td>
+        <td>Promise&lt;User | null&gt;</td>
+        <td>Aguarda o Firebase terminar de restaurar a sessão do usuário (processo assíncrono que pode demorar ~1s na inicialização). Sem isso, <code>auth.currentUser</code> seria <code>null</code> mesmo com o responsável logado. Usado em <code>handleVerificar</code> e <code>handleListarCriancas</code>.</td>
+      </tr>
+    </table>
+
+    <h3>Handlers de Autenticação</h3>
+    <table>
+      <tr><th>Função</th><th>Rota interceptada</th><th>O que faz</th></tr>
+      <tr>
+        <td><code>handleRegister(body)</code></td>
+        <td>POST /api/auth/register</td>
+        <td>Cria um usuário no Firebase Auth com email/senha. Atualiza o <code>displayName</code>. Salva um documento em <code>usuarios/{uid}</code> com nome, email e <code>pinHash: null</code>.</td>
+      </tr>
+      <tr>
+        <td><code>handleLogin(body)</code></td>
+        <td>POST /api/auth/login</td>
+        <td>Autentica no Firebase Auth. Lê o nome do documento <code>usuarios/{uid}</code>. Retorna o objeto do usuário (id, nome, email).</td>
+      </tr>
+      <tr>
+        <td><code>handleLogout()</code></td>
+        <td>POST /api/auth/logout</td>
+        <td>Chama <code>auth.signOut()</code>. Remove a sessão do navegador.</td>
+      </tr>
+      <tr>
+        <td><code>handleVerificar()</code></td>
+        <td>GET /api/auth/verificar</td>
+        <td>Usa <code>aguardarAuthPronto()</code> para verificar se há sessão ativa. Lê o Firestore para checar se o PIN foi cadastrado (<code>temPin</code>). Usado na inicialização de todas as páginas protegidas.</td>
+      </tr>
+      <tr>
+        <td><code>handleCadastrarPin(body)</code></td>
+        <td>POST /api/auth/cadastrar-pin</td>
+        <td>Valida que o PIN tem exatamente 4 dígitos (0-9). Calcula o SHA-256 do PIN via <code>hashTexto()</code>. Salva o hash no campo <code>pinHash</code> do documento do usuário no Firestore.</td>
+      </tr>
+      <tr>
+        <td><code>handleVerificarPin(body)</code></td>
+        <td>POST /api/auth/verificar-pin</td>
+        <td>Lê o <code>pinHash</code> do Firestore. Calcula o hash do PIN digitado. Compara os dois hashes. Retorna sucesso ou erro.</td>
+      </tr>
+      <tr>
+        <td><code>handleAlterarSenha(body)</code></td>
+        <td>POST /api/auth/alterar-senha</td>
+        <td>Re-autentica o usuário com a senha atual (obrigatório pelo Firebase). Chama <code>user.updatePassword(novaSenha)</code>. Retorna erro específico se a senha atual estiver errada.</td>
+      </tr>
+      <tr>
+        <td><code>handleRecuperarSenha(body)</code></td>
+        <td>POST /api/auth/recuperar-senha</td>
+        <td>Chama <code>auth.sendPasswordResetEmail(email)</code>. O Firebase envia um email em português (configurado com <code>auth.languageCode = 'pt-BR'</code>) com link para redefinir a senha. Não requer login prévio.</td>
+      </tr>
+    </table>
+
+    <h3>Handlers de Rotinas</h3>
+    <table>
+      <tr><th>Função</th><th>Rota interceptada</th><th>O que faz</th></tr>
+      <tr>
+        <td><code>handleAtividadesPreDefinidas()</code></td>
+        <td>GET /api/rotinas/atividades-pre-definidas</td>
+        <td>Retorna uma lista estática de 19 atividades pré-programadas (arrumar quarto, escovar dentes, etc.), organizadas por categoria. Não consulta o Firestore — os dados estão no próprio código.</td>
+      </tr>
+      <tr>
+        <td><code>handleListarCriancas()</code></td>
+        <td>GET /api/rotinas/listar-criancas</td>
+        <td>Aguarda auth com <code>aguardarAuthPronto()</code>. Consulta a coleção <code>rotinas</code> filtrando por <code>usuarioId == user.uid</code>. Retorna lista com id, nome, sobrenome, gênero e ano de nascimento de cada criança.</td>
+      </tr>
+      <tr>
+        <td><code>handleBuscarCrianca(body)</code></td>
+        <td>POST /api/rotinas/buscar-crianca</td>
+        <td>Busca pública (sem login). Consulta <code>rotinas</code> por <code>criancaNome</code> e opcionalmente <code>criancaAnoNascimento</code>. Usada na tela das crianças para elas se identificarem pelo nome.</td>
+      </tr>
+      <tr>
+        <td><code>handleListarRotinas()</code></td>
+        <td>GET /api/rotinas</td>
+        <td>Requer login. Retorna todos os documentos de <code>rotinas</code> onde <code>usuarioId == auth.currentUser.uid</code>, com todos os campos (inclusive o array de atividades e seções).</td>
+      </tr>
+      <tr>
+        <td><code>handleBuscarRotina(id)</code></td>
+        <td>GET /api/rotinas/:id</td>
+        <td>Busca um documento específico em <code>rotinas</code> pelo ID (string gerada pelo Firestore). Retorna erro 404 se não encontrar. Não verifica propriedade — permite leitura pública.</td>
+      </tr>
+      <tr>
+        <td><code>handleCriarRotina(body)</code></td>
+        <td>POST /api/rotinas</td>
+        <td>Requer login. Monta o objeto <code>novaRotina</code> com todos os campos (nome, gênero, atividades, diasSemana, etc.) e adiciona à coleção <code>rotinas</code> com ID automático do Firestore.</td>
+      </tr>
+      <tr>
+        <td><code>handleAtualizarRotina(id, body)</code></td>
+        <td>PUT /api/rotinas/:id</td>
+        <td>Requer login. Lê o documento para verificar se <code>usuarioId == user.uid</code>. Faz merge do body recebido com os dados existentes. Salva com <code>ref.set(atualizado)</code>.</td>
+      </tr>
+      <tr>
+        <td><code>handleDeletarRotina(id)</code></td>
+        <td>DELETE /api/rotinas/:id</td>
+        <td>Requer login e verifica propriedade. Exclui o documento da rotina. Em seguida, busca todos os documentos de <code>historico</code> com <code>rotinaId == id</code> e os exclui em batch (operação atômica).</td>
+      </tr>
+    </table>
+
+    <h3>Handlers de Histórico</h3>
+    <table>
+      <tr><th>Função</th><th>Rota interceptada</th><th>O que faz</th></tr>
+      <tr>
+        <td><code>handleSalvarHistorico(body)</code></td>
+        <td>POST /api/historico/salvar</td>
+        <td>Calcula o identificador da semana atual (<code>getIdentificadorSemana</code>). Usa <code>dbF.collection('historico').doc(docId).set(registro)</code> com ID composto <code>{rotinaId}_{semanaId}</code> — se já existir, sobrescreve (upsert).</td>
+      </tr>
+      <tr>
+        <td><code>handleBuscarHistoricoRotina(rotinaId)</code></td>
+        <td>GET /api/historico/rotina/:rotinaId</td>
+        <td>Lista todos os documentos de <code>historico</code> com <code>rotinaId == rotinaId</code>, ordenados por <code>semanaId desc</code>. Se o índice do Firestore não existir, faz fallback com ordenação em JavaScript.</td>
+      </tr>
+      <tr>
+        <td><code>handleBuscarHistoricoSemana(rotinaId, semanaId)</code></td>
+        <td>GET /api/historico/semana/:rotinaId/:semanaId</td>
+        <td>Busca o documento específico com ID <code>{rotinaId}_{semanaId}</code>. Usado para carregar o progresso exato de uma semana ao abrir a tela de detalhes.</td>
+      </tr>
+    </table>
+
+    <h3>Utilitários de data</h3>
+    <table>
+      <tr><th>Função</th><th>Parâmetro</th><th>Retorno</th><th>Descrição</th></tr>
+      <tr>
+        <td><code>getInicioSemana(data)</code></td>
+        <td>Date ou string de data</td>
+        <td>Date (domingo 00:00)</td>
+        <td>Calcula o domingo da semana que contém a data informada.</td>
+      </tr>
+      <tr>
+        <td><code>getFimSemana(data)</code></td>
+        <td>Date ou string de data</td>
+        <td>Date (sábado 23:59:59)</td>
+        <td>Calcula o sábado da semana que contém a data informada.</td>
+      </tr>
+      <tr>
+        <td><code>formatarData(data)</code></td>
+        <td>Date ou string de data</td>
+        <td>string "dd/mm/aaaa"</td>
+        <td>Formata uma data no padrão brasileiro para exibição.</td>
+      </tr>
+      <tr>
+        <td><code>getIdentificadorSemana(data)</code></td>
+        <td>Date ou string de data</td>
+        <td>string "aaaa-ss"</td>
+        <td>Gera uma chave única para a semana no formato <code>2026-07</code> (ano + número da semana com 2 dígitos). Usada como parte do ID dos documentos de histórico.</td>
+      </tr>
+    </table>
+
+    <h3>Interceptador window.fetch</h3>
+    <p>O bloco ao final de db.js sobrescreve <code>window.fetch</code>:</p>
+    <pre>const _fetchOriginal = window.fetch.bind(window);
+
+window.fetch = async function(url, options = {}) {
+    // Se não começar com /api/, usa o fetch original
+    if (!url.startsWith('/api/')) return _fetchOriginal(url, options);
+
+    // Identifica o método HTTP e o body JSON
+    const method = (options.method || 'GET').toUpperCase();
+    let body = JSON.parse(options.body || '{}');
+
+    // Roteamento:
+    if (url === '/api/auth/login' &amp;&amp; method === 'POST') return handleLogin(body);
+    // ... uma linha para cada rota ...
+
+    // IDs dinâmicos extraídos com regex:
+    const rotinaMatch = url.match(/^\/api\/rotinas\/([^/]+)$/);
+    if (rotinaMatch &amp;&amp; method === 'DELETE') return handleDeletarRotina(rotinaMatch[1]);
+};</pre>
+
+    <div class="dica"><strong>Vantagem desta abordagem:</strong> Nenhum outro arquivo JS (<code>admin.js</code>, <code>rotina.js</code>, etc.) foi modificado para usar Firebase. Eles continuam fazendo as mesmas chamadas <code>fetch('/api/...')</code> de sempre. O db.js intercepta silenciosamente e responde com os dados do Firestore.</div>
+  </div>
+
+  <!-- REFERÊNCIA RÁPIDA -->
+  <div class="secao" style="background: #fff8e1; border: 2px solid #ff9500;">
+    <h2 style="color: #e65c00; border-color: #e65c00;">&#128204; Referência Rápida — Links</h2>
+    <table>
+      <tr><th>O que preciso</th><th>Onde ir</th></tr>
+      <tr><td>Painel do Firebase</td><td><code>console.firebase.google.com</code></td></tr>
+      <tr><td>Ver usuários</td><td>Authentication → Users</td></tr>
+      <tr><td>Ver/editar dados</td><td>Firestore Database → (coleção)</td></tr>
+      <tr><td>Alterar regras</td><td>Firestore Database → Regras</td></tr>
+      <tr><td>Ver erros do app</td><td>F12 no navegador → Console (aba)</td></tr>
+      <tr><td>Monitorar uso</td><td>Uso e cobrança (menu lateral)</td></tr>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <p>MissãoDoDiaKids &copy; 2026 — FKB Fit & Utilities Ltda</p>
+  <p style="margin-top: 6px;">Manual Firebase — para manutenção direta no banco de dados</p>
+</footer>
+
+</body>
+</html>
