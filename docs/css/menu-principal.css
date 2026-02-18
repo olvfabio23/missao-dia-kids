@@ -318,25 +318,58 @@ body {
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 12px;
+    }
+
     .menu-grid {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
+        max-width: 100%;
     }
-    
+
+    .menu-card {
+        padding: 36px 20px;
+    }
+
     .titulo-selecao {
-        font-size: 32px;
+        font-size: 28px;
+        margin-bottom: 30px;
     }
-    
+
     .card-icon {
         font-size: 80px;
     }
-    
+
     .menu-card h3 {
-        font-size: 28px;
+        font-size: 26px;
     }
-    
+
+    .menu-card.crianca h3 {
+        font-size: 30px;
+    }
+
+    .menu-card p {
+        font-size: 17px;
+    }
+
     .btn-grande {
+        font-size: 20px;
+        padding: 15px 24px;
+    }
+
+    .header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        padding: 14px 16px;
+    }
+
+    .header h1 {
         font-size: 22px;
-        padding: 15px 30px;
+    }
+
+    .user-info {
+        justify-content: center;
     }
 }

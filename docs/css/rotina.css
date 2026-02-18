@@ -395,6 +395,8 @@ body.tema-menina .valor-badge {
 .tabela-rotina {
     overflow-x: auto;
     margin-top: 20px;
+    /* permite scroll horizontal mas mantém colunas sticky visíveis */
+    -webkit-overflow-scrolling: touch;
 }
 
 .tabela-rotina table {
@@ -405,6 +407,8 @@ body.tema-menina .valor-badge {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    /* necessário para sticky funcionar dentro de overflow-x */
+    min-width: max-content;
 }
 
 .tabela-rotina th {
@@ -416,10 +420,21 @@ body.tema-menina .valor-badge {
     border: 2px solid white;
 }
 
+/* Cabeçalho da coluna Atividade — fixo à esquerda */
+.tabela-rotina th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+}
+
+/* Cabeçalho da coluna do dia de hoje — fixo após o nome */
 .tabela-rotina th.dia-hoje {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     font-weight: bold;
-    position: relative;
+    position: sticky;
+    left: var(--col-nome-width, 0px);
+    z-index: 2;
 }
 
 .tabela-rotina th.dia-hoje::after {
@@ -432,8 +447,13 @@ body.tema-menina .valor-badge {
     border: 2px solid #e0e0e0;
 }
 
+/* Célula do dia de hoje — fixa após o nome */
 .tabela-rotina td.dia-hoje {
     background: #f0fdf4;
+    position: sticky;
+    left: var(--col-nome-width, 0px);
+    z-index: 1;
+    border-right: 3px solid #10b981;
 }
 
 .tabela-rotina td.atividade-nome {
@@ -441,8 +461,14 @@ body.tema-menina .valor-badge {
     font-weight: bold;
     font-size: 18px;
     background: #f9fafb;
-    min-width: 250px;
+    min-width: 200px;
+    max-width: 240px;
     padding: 12px 15px;
+    /* fixa a coluna de nome à esquerda */
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    border-right: 3px solid #e0e0e0;
 }
 
 .atividade-info-linha {
@@ -500,20 +526,39 @@ body.tema-menina .valor-badge {
 @media (max-width: 768px) {
     .tabela-rotina {
         font-size: 14px;
+        /* garante que a tabela não ultrapasse a tela */
+        max-width: calc(100vw - 40px);
     }
-    
+
     .tabela-rotina th,
     .tabela-rotina td {
-        padding: 10px 5px;
+        padding: 10px 8px;
+        min-width: 60px;
     }
-    
+
+    .tabela-rotina td.atividade-nome {
+        min-width: 140px;
+        max-width: 160px;
+        font-size: 13px;
+        padding: 10px 8px;
+    }
+
+    .tabela-rotina th:first-child {
+        min-width: 140px;
+    }
+
     .atividade-emoji {
         font-size: 20px;
+        margin-right: 6px;
     }
-    
+
+    .atividade-nome-texto {
+        font-size: 13px;
+    }
+
     .atividade-checkbox {
-        width: 25px;
-        height: 25px;
+        width: 30px;
+        height: 30px;
     }
 }
 
