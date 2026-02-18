@@ -394,30 +394,33 @@ body.tema-menina .valor-badge {
 
 .tabela-rotina {
     overflow-x: auto;
+    overflow-y: visible;
     margin-top: 20px;
-    /* permite scroll horizontal mas mantém colunas sticky visíveis */
     -webkit-overflow-scrolling: touch;
+    /* sombra visual indicando que há mais conteúdo para rolar */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .tabela-rotina table {
-    width: 100%;
-    border-collapse: separate;
+    /* NÃO usar width:100% — deixa a tabela expandir conforme os dias */
+    border-collapse: collapse;
     border-spacing: 0;
     background: white;
     border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    /* necessário para sticky funcionar dentro de overflow-x */
-    min-width: max-content;
+    /* NÃO colocar overflow:hidden aqui — quebra o sticky */
+    min-width: 100%;
+    table-layout: auto;
 }
 
 .tabela-rotina th {
     background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
     color: white;
-    padding: 15px;
+    padding: 15px 12px;
     font-size: 18px;
     text-align: center;
     border: 2px solid white;
+    white-space: nowrap;
 }
 
 /* Cabeçalho da coluna Atividade — fixo à esquerda */
@@ -426,6 +429,8 @@ body.tema-menina .valor-badge {
     left: 0;
     z-index: 3;
     background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    /* sombra para destacar que está fixo */
+    box-shadow: 3px 0 6px rgba(0,0,0,0.15);
 }
 
 .tabela-rotina th.dia-hoje {
@@ -438,9 +443,10 @@ body.tema-menina .valor-badge {
 }
 
 .tabela-rotina td {
-    padding: 15px;
+    padding: 15px 12px;
     text-align: center;
-    border: 2px solid #e0e0e0;
+    border: 1px solid #e0e0e0;
+    white-space: nowrap;
 }
 
 .tabela-rotina td.dia-hoje {
@@ -452,14 +458,16 @@ body.tema-menina .valor-badge {
     font-weight: bold;
     font-size: 18px;
     background: #f9fafb;
-    min-width: 200px;
-    max-width: 240px;
+    min-width: 180px;
+    max-width: 220px;
     padding: 12px 15px;
+    white-space: normal;
     /* fixa a coluna de nome à esquerda */
     position: sticky;
     left: 0;
     z-index: 2;
-    border-right: 3px solid #e0e0e0;
+    /* sombra para destacar a coluna fixa */
+    box-shadow: 3px 0 6px rgba(0,0,0,0.08);
 }
 
 .atividade-info-linha {
@@ -516,35 +524,36 @@ body.tema-menina .valor-badge {
 
 @media (max-width: 768px) {
     .tabela-rotina {
-        font-size: 14px;
-        /* garante que a tabela não ultrapasse a tela */
-        max-width: calc(100vw - 40px);
+        font-size: 13px;
+        /* limita ao viewport menos o padding da página */
+        max-width: calc(100vw - 32px);
     }
 
     .tabela-rotina th,
     .tabela-rotina td {
         padding: 10px 8px;
-        min-width: 60px;
-    }
-
-    .tabela-rotina td.atividade-nome {
-        min-width: 140px;
-        max-width: 160px;
+        min-width: 56px;
         font-size: 13px;
-        padding: 10px 8px;
     }
 
     .tabela-rotina th:first-child {
-        min-width: 140px;
+        font-size: 13px;
+    }
+
+    .tabela-rotina td.atividade-nome {
+        min-width: 130px;
+        max-width: 150px;
+        font-size: 12px;
+        padding: 10px 8px;
     }
 
     .atividade-emoji {
         font-size: 20px;
-        margin-right: 6px;
+        margin-right: 5px;
     }
 
     .atividade-nome-texto {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .atividade-checkbox {
