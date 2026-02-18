@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal - Rotinas Infantis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/menu-principal.css">
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 MissãoDoDiaKids</h1>
+        <div class="user-info">
+            <span id="nomeUsuario"></span>
+            <button onclick="logout()" class="btn-logout">🚪 Sair</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="titulo-selecao">O que você quer fazer?</h2>
+        
+        <div class="menu-grid">
+            <!-- Opção para Ver Rotinas das Crianças -->
+            <div class="menu-card crianca" onclick="abrirRotinas()">
+                <div class="card-icon">👶</div>
+                <h3>VER ROTINAS</h3>
+                <p>Visualizar rotinas das crianças cadastradas</p>
+                <div class="card-footer">
+                    <button class="btn-grande btn-crianca">📋 ABRIR ROTINAS</button>
+                </div>
+            </div>
+
+            <!-- Opção para Pais - Protegida por PIN -->
+            <div class="menu-card admin" onclick="abrirAreaAdmin()">
+                <div class="card-icon">👨‍👩‍👧‍👦</div>
+                <h3>ÁREA DOS PAIS</h3>
+                <p>Configurar e gerenciar rotinas</p>
+                <div class="card-footer">
+                    <button class="btn-grande btn-admin">⚙️ CONFIGURAÇÕES</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de PIN -->
+    <div id="modalPin" class="modal-pin">
+        <div class="modal-pin-content">
+            <span class="close-pin" onclick="fecharModalPin()">&times;</span>
+            <h2>🔐 Digite o PIN Administrativo</h2>
+            <p>Somente os pais devem saber este PIN</p>
+            <div id="mensagemPin"></div>
+            <form id="formPin">
+                <input type="password" id="inputPin" maxlength="4" pattern="[0-9]*" inputmode="numeric" placeholder="••••" autofocus>
+                <div class="pin-buttons">
+                    <button type="submit" class="btn btn-primary">✅ CONFIRMAR</button>
+                    <button type="button" onclick="fecharModalPin()" class="btn btn-secondary">❌ CANCELAR</button>
+                </div>
+            </form>
+        </div>        
+        <footer style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e0e0e0; color: #666;">
+            <p style="font-size: 1.1em; margin-bottom: 10px;">🚀 MissãoDoDiaKids &copy; 2026</p>
+            <p style="font-size: 0.95em;">Desenvolvido por <strong>FKB Fit & Utilities Ltda</strong></p>
+        </footer>    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/menu-principal.js"></script>
+</body>
+</html>

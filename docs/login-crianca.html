@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolha sua Missão - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .selecao-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+        
+        .titulo-selecao {
+            text-align: center;
+            color: #1e3a8a;
+            font-size: 42px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            font-size: 22px;
+            margin-bottom: 40px;
+        }
+        
+        .lista-criancas {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-height: 550px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 20px;
+            border: 3px solid #e5e7eb;
+        }
+        
+        .lista-criancas::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        .lista-criancas::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .lista-criancas::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        
+        .lista-criancas::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        .card-crianca {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+        }
+        
+        .card-crianca:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-crianca.menino {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        }
+        
+        .card-crianca.menino:hover {
+            border-color: #2563eb;
+            box-shadow: 0 10px 30px rgba(59,130,246,0.4);
+        }
+        
+        .card-crianca.menina {
+            border-color: #ec4899;
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+        }
+        
+        .card-crianca.menina:hover {
+            border-color: #db2777;
+            box-shadow: 0 10px 30px rgba(236,72,153,0.4);
+        }
+        
+        .emoji-crianca {
+            font-size: 80px;
+            margin-bottom: 15px;
+            animation: wave 2s infinite;
+        }
+        
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        .nome-crianca {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        
+        .info-crianca {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .loading-lista {
+            text-align: center;
+            padding: 60px;
+            font-size: 24px;
+            color: #666;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3b82f6;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .voltar-btn {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .voltar-btn a {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .voltar-btn a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .nenhuma-crianca {
+            text-align: center;
+            padding: 60px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nenhuma-crianca h2 {
+            color: #dc2626;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .nenhuma-crianca p {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="selecao-container">
+        <h1 class="titulo-selecao">� Escolha Sua Missão! 🎯</h1>
+        <p class="subtitulo">Clique no seu nome para começar sua missão de hoje</p>
+        
+        <div id="loadingLista" class="loading-lista">
+            <div class="spinner"></div>
+            <p>Carregando...</p>
+        </div>
+        
+        <div id="listaCriancas" class="lista-criancas" style="display: none;"></div>
+        
+        <div class="voltar-btn">
+            <a href="menu-principal.html">🔙 Voltar para Área dos Pais</a>
+        </div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/login-crianca.js"></script>
+</body>
+</html>

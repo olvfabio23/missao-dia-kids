@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Missão - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/rotina.css">
+    <link rel="stylesheet" href="css/cofrinho.css">
+    <link rel="stylesheet" href="css/botoes.css">
+</head>
+<body id="bodyRotina">
+    <div class="loading-screen" id="loadingScreen">
+        <div class="spinner"></div>
+        <p>Carregando sua rotina...</p>
+    </div>
+
+    <div id="rotinaContainer" style="display: none;">
+        <div class="header">
+            <button onclick="voltarPagina()" class="btn-voltar" title="Voltar">🔙 Voltar</button>
+            <h1 id="tituloRotina"></h1>
+            <p id="subtitulo"></p>
+        </div>
+
+        <!-- Cofrinho de Recompensas -->
+        <div id="cofrinhoContainer" class="cofrinho-container" style="display: none;">
+            <div class="cofrinho-card">
+                <div class="porquinho-animado" id="porquinhoAnimado">
+                    <div class="pig-emoji" id="pigEmoji">🐷</div>
+                    <div class="moedas-efeito" id="moedasEfeito"></div>
+                </div>
+                <div class="cofrinho-info">
+                    <h3>💰 Meu Cofrinho</h3>
+                    <div class="valor-semanal">
+                        <span>Esta semana:</span>
+                        <strong class="valor-display" id="valorSemanal">R$ 0,00</strong>
+                    </div>
+                    <div class="valor-mensal">
+                        <span>Este mês:</span>
+                        <strong class="valor-display-mes" id="valorMensal">R$ 0,00</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box" id="avisoEletronicos">
+            <h2>🚫 ATENÇÃO! REGRA IMPORTANTE! 🚫</h2>
+            <p>
+                ❌ É PROIBIDO usar celular, tablet, computador ou assistir TV<br>
+                ANTES de completar TODAS as atividades da rotina!<br>
+                ✅ Só depois de fazer TUDO você pode usar eletrônicos!
+            </p>
+        </div>
+
+        <div class="container">
+            <div id="atividadesContainer"></div>
+
+            <div id="observacoes" class="observacoes" style="display: none;">
+                <h3>📝 Observações Importantes:</h3>
+                <p id="textoObservacoes"></p>
+            </div>
+
+            <div class="footer">
+                <p>🌟 PARABÉNS! 🌟</p>
+                <p>Você é um CAMPEÃO quando completa todas as tarefas! 🏆</p>
+            </div>
+
+            <div class="save-feedback" id="saveFeedback"></div>
+            
+            <button class="save-button" onclick="saveProgress()">💾 SALVAR PROGRESSO</button>
+        </div>
+    </div>
+
+    <div class="celebration-modal" id="celebrationModal">
+        <div class="celebration-content">
+            <div class="big-emoji">🏆</div>
+            <h2 class="modal-titulo">PARABÉNS!</h2>
+            <p>Você completou todas as atividades de hoje! 💪</p>
+            <p>🎮 AGORA VOCÊ ESTÁ LIBERADO! 🎮</p>
+            <button class="close-celebration" onclick="fecharCelebracao()">🎉 FECHAR</button>
+        </div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/rotina.js"></script>
+</body>
+</html>

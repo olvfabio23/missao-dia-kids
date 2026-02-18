@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico Semanal - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/rotina.css">
+    <link rel="stylesheet" href="css/botoes.css">
+    <style>
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        .header h1 {
+            margin: 10px 0;
+            font-size: 2.5rem;
+        }
+        .header p {
+            margin: 5px 0;
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        .btn-voltar {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .historico-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .semanas-list {
+            display: grid;
+            gap: 20px;
+        }
+        .semana-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        .semana-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .semana-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2563eb;
+        }
+        .semana-info {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        .progresso-resumo {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .progresso-item {
+            background: #f3f4f6;
+            padding: 12px 20px;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+        }
+        .progresso-item strong {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .btn-ver-detalhes {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s;
+        }
+        .btn-ver-detalhes:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(139, 92, 246, 0.4);
+        }
+        .vazio {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .vazio h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        .vazio p {
+            font-size: 1.3rem;
+            color: #666;
+        }
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3b82f6;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <button onclick="history.back()" class="btn-voltar" title="Voltar">🔙 Voltar</button>
+        <h1>📚 Histórico Semanal</h1>
+        <p id="criancaNome"></p>
+    </div>
+
+    <div class="historico-container">
+        <div id="loadingScreen" class="loading-screen">
+            <div class="spinner"></div>
+            <p style="margin-top: 20px; font-size: 1.2rem;">Carregando histórico...</p>
+        </div>
+
+        <div id="semanasContainer" class="semanas-list" style="display: none;"></div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/historico.js"></script>
+</body>
+</html>

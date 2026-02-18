@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Cadastro 📝</h1>
+        
+        <div id="mensagem"></div>
+        
+        <form id="cadastroForm">
+            <div class="form-group">
+                <label for="nome">👤 Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">📧 Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">🔒 Senha:</label>
+                <input type="password" id="senha" name="senha" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmarSenha">🔒 Confirmar Senha:</label>
+                <input type="password" id="confirmarSenha" name="confirmarSenha" required minlength="6">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">✅ CADASTRAR</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Cadastrando...</p>
+        </div>
+        
+        <p class="text-center" style="margin-top: 20px;">
+            Já tem conta? <a href="login.html" class="link">Faça login aqui</a>
+        </p>        
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; color: #666; font-size: 0.85em;">
+            <p>MissãoDoDiaKids &copy; 2026</p>
+            <p style="margin-top: 5px;">Desenvolvido por <strong>FKB Fit & Utilities Ltda</strong></p>
+        </footer>    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/cadastro.js"></script>
+</body>
+</html>

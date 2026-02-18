@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 Login 🌟</h1>
+        
+        <div id="mensagem"></div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">📧 Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">🔒 Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">🚀 ENTRAR</button>
+        </form>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Entrando...</p>
+        </div>
+        
+        <p class="text-center" style="margin-top: 16px;">
+            <a href="#" id="linkEsqueciSenha" class="link" style="font-size: 0.9em; color: #888;">🔑 Esqueci minha senha</a>
+        </p>
+
+        <p class="text-center" style="margin-top: 12px;">
+            Não tem conta? <a href="cadastro.html" class="link">Cadastre-se aqui</a>
+        </p>
+
+        <!-- Modal Esqueci a Senha -->
+        <div id="modalEsqueciSenha" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center;">
+            <div style="background:white; border-radius:16px; padding:32px 28px; max-width:380px; width:90%; box-shadow:0 8px 32px rgba(0,0,0,0.2);">
+                <h3 style="margin-bottom:8px; color:#1a202c;">🔑 Recuperar Senha</h3>
+                <p style="font-size:0.9em; color:#666; margin-bottom:20px;">Digite seu email cadastrado. Enviaremos um link para você criar uma nova senha.</p>
+                <div id="mensagemRecuperacao"></div>
+                <form id="formRecuperacao">
+                    <div class="form-group">
+                        <label for="emailRecuperacao">📧 Email:</label>
+                        <input type="email" id="emailRecuperacao" required placeholder="seu@email.com">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">📨 Enviar Link</button>
+                </form>
+                <button onclick="fecharModalSenha()" style="width:100%; margin-top:12px; padding:10px; border:1px solid #ddd; border-radius:8px; background:white; cursor:pointer; color:#666;">Cancelar</button>
+            </div>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; color: #666; font-size: 0.85em;">
+            <p>MissãoDoDiaKids &copy; 2026</p>
+            <p style="margin-top: 5px;">Desenvolvido por <strong>FKB Fit & Utilities Ltda</strong></p>
+        </footer>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

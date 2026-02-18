@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="48" fill="#2563eb" stroke="#1e40af" stroke-width="2"/>
+  
+  <!-- Checkmark/Task icon -->
+  <path d="M30 50 L45 65 L70 35" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Star decorations -->
+  <circle cx="25" cy="25" r="3" fill="#fbbf24"/>
+  <circle cx="75" cy="25" r="3" fill="#fbbf24"/>
+  <circle cx="25" cy="75" r="3" fill="#fbbf24"/>
+  <circle cx="75" cy="75" r="3" fill="#fbbf24"/>
+</svg>

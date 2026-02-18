@@ -1,0 +1,81 @@
+/* Botões de Voltar */
+.btn-voltar {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    z-index: 100;
+}
+
+.btn-voltar:hover {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-voltar:active {
+    transform: translateY(-50%) scale(0.98);
+}
+
+/* Ajustar header para acomodar botão */
+.header {
+    position: relative;
+    padding: 20px 80px;
+}
+
+/* Indicador de mudanças não salvas */
+.unsaved-indicator {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #fbbf24;
+    color: #78350f;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+    animation: pulse-warning 2s infinite;
+    z-index: 1000;
+}
+
+@keyframes pulse-warning {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .btn-voltar {
+        left: 10px;
+        padding: 10px 16px;
+        font-size: 16px;
+    }
+    
+    .header {
+        padding: 15px 60px 15px 50px;
+    }
+    
+    .unsaved-indicator {
+        top: 70px;
+        right: 10px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}

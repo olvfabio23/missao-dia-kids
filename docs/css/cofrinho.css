@@ -1,0 +1,225 @@
+/* ================================
+   ESTILOS DO COFRINHO/RECOMPENSAS
+   ================================ */
+.cofrinho-container {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.cofrinho-card {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde047 100%);
+    border: 4px solid #f59e0b;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+    }
+    50% {
+        box-shadow: 0 8px 30px rgba(245, 158, 11, 0.6);
+    }
+}
+
+.porquinho-animado {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.pig-emoji {
+    font-size: 80px;
+    animation: bounce 1s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.pig-emoji.feliz {
+    animation: bounceHappy 0.6s ease-in-out infinite, rotate 0.5s ease-in-out;
+}
+
+@keyframes bounceHappy {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-15px) scale(1.1);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.moedas-efeito {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.moeda-voando {
+    position: absolute;
+    font-size: 24px;
+    animation: voarMoeda 1s ease-out forwards;
+}
+
+@keyframes voarMoeda {
+    0% {
+        bottom: 50%;
+        left: 50%;
+        opacity: 1;
+        transform: translate(-50%, 0) scale(1);
+    }
+    100% {
+        bottom: 100%;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -50px) scale(1.5);
+    }
+}
+
+.cofrinho-info {
+    flex: 1;
+}
+
+.cofrinho-info h3 {
+    font-size: 28px;
+    color: #92400e;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.valor-semanal, .valor-mensal {
+    background: rgba(255,255,255,0.7);
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid rgba(146, 64, 14, 0.3);
+}
+
+.valor-semanal span, .valor-mensal span {
+    font-size: 16px;
+    color: #92400e;
+    font-weight: 600;
+}
+
+.valor-display, .valor-display-mes {
+    font-size: 24px;
+    color: #15803d;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Tema Menino - Cofrinho */
+body.tema-menino .cofrinho-card {
+    background: linear-gradient(135deg, #dbeafe 0%, #93c5fd 100%);
+    border-color: #1e40af;
+}
+
+body.tema-menino .cofrinho-info h3 {
+    color: #1e3a8a;
+}
+
+body.tema-menino .valor-semanal,
+body.tema-menino .valor-mensal {
+    border-color: rgba(30, 64, 175, 0.3);
+}
+
+body.tema-menino .valor-semanal span,
+body.tema-menino .valor-mensal span {
+    color: #1e3a8a;
+}
+
+/* Tema Menina - Cofrinho */
+body.tema-menina .cofrinho-card {
+    background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+    border-color: #db2777;
+}
+
+body.tema-menina .cofrinho-info h3 {
+    color: #831843;
+}
+
+body.tema-menina .valor-semanal,
+body.tema-menina .valor-mensal {
+    border-color: rgba(219, 39, 119, 0.3);
+}
+
+body.tema-menina .valor-semanal span,
+body.tema-menina .valor-mensal span {
+    color: #831843;
+}
+
+/* Valor da atividade (exibido ao lado) */
+.atividade-valor {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde047 100%);
+    border: 2px solid #f59e0b;
+    border-radius: 10px;
+    padding: 5px 12px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #92400e;
+    margin-left: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* Responsivo - Cofrinho */
+@media (max-width: 768px) {
+    .cofrinho-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .porquinho-animado {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .pig-emoji {
+        font-size: 60px;
+    }
+    
+    .cofrinho-info h3 {
+        font-size: 24px;
+    }
+    
+    .valor-display, .valor-display-mes {
+        font-size: 20px;
+    }
+}

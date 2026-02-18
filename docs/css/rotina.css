@@ -1,0 +1,969 @@
+/* rotina.css - Estilos para visualização de rotina */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Adicionar padrões decorativos */
+/* Elementos decorativos flutuantes */
+body::before,
+body::after {
+    position: fixed;
+    font-size: 40px;
+    opacity: 0.2;
+    z-index: 1;
+    pointer-events: none;
+}
+
+body::before {
+    content: '⭐';
+    animation: float 6s ease-in-out infinite;
+    top: 10%;
+    left: 5%;
+}
+
+body::after {
+    content: '🌟';
+    font-size: 50px;
+    animation: float 8s ease-in-out infinite;
+    bottom: 15%;
+    right: 8%;
+}
+
+/* Mais elementos decorativos */
+.container::before {
+    content: '💫';
+    position: fixed;
+    font-size: 35px;
+    opacity: 0.25;
+    animation: float 7s ease-in-out infinite;
+    top: 40%;
+    right: 10%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.container::after {
+    content: '✨';
+    position: fixed;
+    font-size: 45px;
+    opacity: 0.2;
+    animation: float 9s ease-in-out infinite;
+    bottom: 30%;
+    left: 8%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.header::before {
+    content: '🎯';
+    position: fixed;
+    font-size: 38px;
+    opacity: 0.2;
+    animation: float 6.5s ease-in-out infinite;
+    top: 60%;
+    left: 3%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.header::after {
+    content: '🎨';
+    position: fixed;
+    font-size: 42px;
+    opacity: 0.2;
+    animation: float 7.5s ease-in-out infinite;
+    top: 25%;
+    right: 5%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* Tema Menino - Azul com elementos infantis */
+body.tema-menino {
+    background: 
+        radial-gradient(circle at 15% 85%, rgba(59, 130, 246, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, rgba(96, 165, 250, 0.3) 0%, transparent 40%),
+        linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+    background-attachment: fixed;
+}
+
+body.tema-menino::before {
+    content: '⚽';
+    font-size: 50px;
+}
+
+body.tema-menino::after {
+    content: '🚀';
+    font-size: 45px;
+}
+
+body.tema-menino .container::before {
+    content: '🏎️';
+    font-size: 40px;
+}
+
+body.tema-menino .container::after {
+    content: '🦖';
+    font-size: 48px;
+}
+
+body.tema-menino .header::before {
+    content: '🎮';
+    font-size: 42px;
+}
+
+body.tema-menino .header::after {
+    content: '🛹';
+    font-size: 38px;
+}
+
+/* Tema Menina - Rosa com elementos infantis */
+body.tema-menina {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(219, 39, 119, 0.3) 0%, transparent 40%),
+        linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    background-attachment: fixed;
+}
+
+body.tema-menina::before {
+    content: '🦋';
+    font-size: 45px;
+}
+
+body.tema-menina::after {
+    content: '🌸';
+    font-size: 50px;
+}
+
+body.tema-menina .container::before {
+    content: '🌈';
+    font-size: 42px;
+}
+
+body.tema-menina .container::after {
+    content: '🦄';
+    font-size: 46px;
+}
+
+body.tema-menina .header::before {
+    content: '💖';
+    font-size: 40px;
+}
+
+body.tema-menina .header::after {
+    content: '🌺';
+    font-size: 44px;
+}
+
+body.tema-menino .header {
+    background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%);
+}
+
+body.tema-menino .warning-box {
+    background: linear-gradient(135deg, #f97316 0%, #fbbf24 100%);
+    border-color: #ea580c;
+}
+
+body.tema-menino .warning-box h2 {
+    color: #ea580c;
+}
+
+body.tema-menino .atividade-secao {
+    background: linear-gradient(135deg, #bfdbfe 0%, #a5f3fc 100%);
+}
+
+body.tema-menino .atividade-secao h2 {
+    color: #1e40af;
+}
+
+body.tema-menino .atividade-item.completa {
+    background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+    border-color: #059669;
+}
+
+body.tema-menino .footer {
+    background: linear-gradient(135deg, #dbeafe 0%, #bae6fd 100%);
+    color: #1e40af;
+}
+
+body.tema-menino .save-button {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+    box-shadow: 0 5px 20px rgba(8,145,178,0.4);
+}
+
+body.tema-menino .celebration-content {
+    background: linear-gradient(135deg, #2563eb 0%, #0891b2 100%);
+}
+
+body.tema-menino .titulo-secao {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+}
+
+body.tema-menino .atividade-card {
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    border: 3px solid #60a5fa;
+}
+
+body.tema-menino .atividade-nome-texto {
+    color: #1e40af;
+}
+
+body.tema-menino .valor-badge {
+    background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+}
+
+/* Tema Menina - Rosa, Roxo, Pink */
+body.tema-menina .header {
+    background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+}
+
+body.tema-menina .warning-box {
+    background: linear-gradient(135deg, #fbbf24 0%, #fcd34d 100%);
+    border-color: #f59e0b;
+}
+
+body.tema-menina .warning-box h2 {
+    color: #c2410c;
+}
+
+body.tema-menina .atividade-secao {
+    background: linear-gradient(135deg, #fce7f3 0%, #f5d0fe 100%);
+}
+
+body.tema-menina .atividade-secao h2 {
+    color: #be185d;
+}
+
+body.tema-menina .atividade-item.completa {
+    background: linear-gradient(135deg, #fae8ff 0%, #f0abfc 100%);
+    border-color: #c026d3;
+}
+
+body.tema-menina .footer {
+    background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+    color: #be185d;
+}
+
+body.tema-menina .save-button {
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    box-shadow: 0 5px 20px rgba(236,72,153,0.4);
+}
+
+body.tema-menina .celebration-content {
+    background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+}
+
+body.tema-menina .titulo-secao {
+    background: linear-gradient(135deg, #ec4899 0%, #d946ef 100%);
+}
+
+body.tema-menina .atividade-card {
+    background: linear-gradient(135deg, #fce7f3 0%, #f5d0fe 100%);
+    border: 3px solid #f0abfc;
+}
+
+body.tema-menina .atividade-nome-texto {
+    color: #be185d;
+}
+
+body.tema-menina .valor-badge {
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+}
+
+.loading-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+}
+
+.spinner {
+    border: 5px solid rgba(255,255,255,0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #059669 100%);
+    border-radius: 20px;
+    color: white;
+}
+
+.header h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.header p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.warning-box {
+    background: linear-gradient(135deg, #ff6b35 0%, #ffd700 100%);
+    border: 5px solid #dc2626;
+    border-radius: 20px;
+    padding: 25px;
+    margin: 30px auto;
+    max-width: 1000px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(220,38,38,0.4);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.warning-box h2 {
+    color: #dc2626;
+    font-size: 36px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.warning-box p {
+    font-size: 22px;
+    color: #333;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+.atividade-secao {
+    margin: 30px 0;
+    background: linear-gradient(135deg, #bfdbfe 0%, #a7f3d0 100%);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.atividade-secao h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tabela-rotina {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+.tabela-rotina table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.tabela-rotina th {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    border: 2px solid white;
+}
+
+.tabela-rotina th.dia-hoje {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    font-weight: bold;
+    position: relative;
+}
+
+.tabela-rotina th.dia-hoje::after {
+    content: ' 📍';
+}
+
+.tabela-rotina td {
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+}
+
+.tabela-rotina td.dia-hoje {
+    background: #f0fdf4;
+}
+
+.tabela-rotina td.atividade-nome {
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
+    background: #f9fafb;
+    min-width: 250px;
+    padding: 12px 15px;
+}
+
+.atividade-info-linha {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.valor-linha {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+    box-shadow: 0 2px 5px rgba(16,185,129,0.3);
+}
+
+.atividade-emoji {
+    font-size: 28px;
+    margin-right: 10px;
+}
+
+/* Container de seção com destaque */
+.secao-container {
+    margin-bottom: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.atividade-checkbox {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    accent-color: #10b981;
+}
+
+.atividade-checkbox:disabled,
+.checkbox-dia:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+
+.atividade-checkbox:disabled + label,
+.checkbox-dia:disabled + .dia-nome {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .tabela-rotina {
+        font-size: 14px;
+    }
+    
+    .tabela-rotina th,
+    .tabela-rotina td {
+        padding: 10px 5px;
+    }
+    
+    .atividade-emoji {
+        font-size: 20px;
+    }
+    
+    .atividade-checkbox {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* ========== NOVO LAYOUT DE CARDS ========== */
+
+/* Título e Orientação das Seções */
+.titulo-secao {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+    color: white;
+    padding: 18px;
+    border-radius: 15px;
+    margin: 0 0 15px 0;
+    font-size: 26px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+.titulo-secao::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+}
+
+.titulo-secao::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+}
+
+.orientacao-secao {
+    background: #fff3cd;
+    border: 3px solid #ffc107;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin: 0 0 15px 0;
+    color: #856404;
+    font-size: 17px;
+    line-height: 1.6;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Card de Atividade */
+.atividade-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.atividade-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Cabeçalho da Atividade (emoji + nome + valor) */
+.atividade-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #e0e0e0;
+}
+
+.atividade-emoji-grande {
+    font-size: 45px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.atividade-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.atividade-nome-texto {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1e3a8a;
+    line-height: 1.3;
+}
+
+/* Badge de Valor - SEPARADO para não sobrepor */
+.valor-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+    align-self: flex-start;
+}
+
+/* Grid de Dias da Semana */
+.atividade-dias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.dia-checkbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+}
+
+.dia-checkbox:hover {
+    background: #f3f4f6;
+}
+
+.dia-checkbox.hoje {
+    background: #f0fdf4;
+    border: 3px solid #10b981;
+    box-shadow: 0 0 10px rgba(16,185,129,0.3);
+}
+
+.dia-nome {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4b5563;
+    text-align: center;
+}
+
+.dia-checkbox.hoje .dia-nome {
+    color: #059669;
+}
+
+.checkbox-dia {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    accent-color: #10b981;
+}
+
+/* Responsivo para cards */
+@media (max-width: 768px) {
+    .atividade-card {
+        padding: 15px;
+    }
+    
+    .atividade-emoji-grande {
+        font-size: 35px;
+    }
+    
+    .atividade-nome-texto {
+        font-size: 18px;
+    }
+    
+    .valor-badge {
+        font-size: 14px;
+        padding: 4px 10px;
+    }
+    
+    .atividade-dias {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+    }
+    
+    .checkbox-dia {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+.observacoes {
+    background: #fff3cd;
+    border: 3px solid #ffc107;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+.observacoes h3 {
+    color: #856404;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.observacoes p {
+    color: #856404;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #dbeafe 0%, #bae6fd 100%);
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e3a8a;
+}
+
+.save-button {
+    display: block;
+    margin: 20px auto;
+    padding: 20px 50px;
+    font-size: 28px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(16,185,129,0.4);
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    font-weight: bold;
+    animation: pulse-save 2s infinite;
+}
+
+@keyframes pulse-save {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.save-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(16,185,129,0.6);
+}
+
+.save-feedback {
+    text-align: center;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    display: none;
+}
+
+.save-feedback.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 2px solid #10b981;
+}
+
+.celebration-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.celebration-content {
+    background: linear-gradient(135deg, #2563eb 0%, #10b981 100%);
+    padding: 50px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: bounceIn 0.8s;
+    max-width: 600px;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.3); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.celebration-content h2 {
+    font-size: 56px;
+    color: white;
+    margin-bottom: 20px;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+}
+
+.celebration-content p {
+    font-size: 28px;
+    color: white;
+    margin: 15px 0;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.celebration-content .big-emoji {
+    font-size: 100px;
+    margin: 20px 0;
+    animation: rotate 2s infinite;
+}
+
+@keyframes rotate {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+.close-celebration {
+    margin-top: 30px;
+    padding: 15px 40px;
+    font-size: 24px;
+    background: white;
+    color: #2563eb;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-celebration:hover {
+    transform: scale(1.05);
+}
+
+.orientacao-secao {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #856404;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+body.tema-menino .orientacao-secao {
+    background: #cfe2ff;
+    border-left-color: #0d6efd;
+    color: #084298;
+}
+
+body.tema-menina .orientacao-secao {
+    background: #ffc0cb20;
+    border-left-color: #ec4899;
+    color: #831843;
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .header {
+        padding: 12px 15px;
+    }
+
+    .btn-voltar-wrapper,
+    .btn-voltar {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .warning-box h2 {
+        font-size: 20px;
+    }
+
+    .warning-box p {
+        font-size: 15px;
+    }
+
+    .atividade-secao h2 {
+        font-size: 20px;
+    }
+
+    .atividade-texto {
+        font-size: 16px;
+    }
+
+    .atividade-emoji {
+        font-size: 26px;
+    }
+
+    .orientacao-secao {
+        font-size: 14px;
+        padding: 12px 15px;
+    }
+
+    .titulo-secao {
+        font-size: 20px;
+        padding: 14px;
+    }
+
+    .save-button {
+        font-size: 20px;
+        padding: 16px 30px;
+    }
+
+    .celebration-content {
+        padding: 30px 20px;
+        max-width: 95vw;
+    }
+
+    .celebration-content h2 {
+        font-size: 36px;
+    }
+
+    .celebration-content p {
+        font-size: 20px;
+    }
+
+    .celebration-content .big-emoji {
+        font-size: 70px;
+    }
+
+    .close-celebration {
+        font-size: 18px;
+        padding: 12px 28px;
+    }
+
+    .observacoes {
+        padding: 14px;
+    }
+
+    .observacoes h3 {
+        font-size: 18px;
+    }
+
+    .observacoes p {
+        font-size: 15px;
+    }
+
+    .footer {
+        font-size: 16px;
+        padding: 15px;
+    }
+}

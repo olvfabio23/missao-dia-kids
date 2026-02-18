@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Semana</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/rotina.css">
+    <link rel="stylesheet" href="css/botoes.css">
+    <style>
+        .detalhes-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .detalhes-header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .detalhes-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .info-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        .aviso-readonly {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 5px solid #f59e0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .aviso-readonly h3 {
+            color: #7c2d12;
+            margin-bottom: 10px;
+        }
+        .tabela-historico {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        .tabela-historico table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tabela-historico th {
+            background: #3b82f6;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .tabela-historico td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .tabela-historico tr:hover {
+            background: #f9fafb;
+        }
+        .checkbox-readonly {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .checkbox-readonly:checked {
+            accent-color: #10b981;
+        }
+        .atividade-emoji {
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        .loading-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3b82f6;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body id="bodyRotina">
+    <div class="detalhes-container">
+        <button onclick="history.back()" class="btn-voltar">🔙 Voltar</button>
+        
+        <div class="detalhes-header">
+            <h1 id="tituloDetalhes">📋 Detalhes da Semana</h1>
+            <div id="infoSemana"></div>
+        </div>
+
+        <div class="aviso-readonly">
+            <h3>🔒 Modo Somente Leitura</h3>
+            <p>Este é um histórico arquivado e não pode ser alterado.</p>
+        </div>
+
+        <div id="loadingScreen" class="loading-screen">
+            <div class="spinner"></div>
+            <p style="margin-top: 20px; font-size: 1.2rem;">Carregando detalhes...</p>
+        </div>
+
+        <div id="tabelaContainer" class="tabela-historico" style="display: none;"></div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/historico-detalhes.js"></script>
+</body>
+</html>

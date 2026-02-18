@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - MissãoDoDiaKids</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/botoes.css">
+</head>
+<body>
+    <div class="header">
+        <button onclick="voltarMenu()" class="btn-voltar" title="Voltar ao Menu">🔙 Menu</button>
+        <h1>📋 Painel Administrativo</h1>
+        <div class="user-info">
+            <span id="nomeUsuario"></span>
+            <button onclick="abrirAlterarSenha()" class="btn-config" title="Alterar Senha">🔑</button>
+            <button onclick="logout()" class="btn-logout">🚪 Sair</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="mensagem"></div>
+
+        <!-- Lista de Rotinas Existentes -->
+        <div class="section">
+            <h2>🌟 Rotinas Cadastradas</h2>
+            <div id="listaRotinas" class="rotinas-list">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando rotinas...</p>
+                </div>
+            </div>
+            <button onclick="mostrarFormulario()" class="btn btn-primary">➕ NOVA ROTINA</button>
+        </div>
+
+        <!-- Formulário de Criação/Edição -->
+        <div id="formularioRotina" class="section" style="display: none;">
+            <h2 id="tituloFormulario">➕ Nova Rotina</h2>
+            
+            <form id="rotinaForm">
+                <input type="hidden" id="rotinaId">
+                
+                <div class="form-group">
+                    <label for="criancaNome">👶 Primeiro Nome da Criança:</label>
+                    <input type="text" id="criancaNome" required placeholder="Ex: Nathan">
+                </div>
+
+                <div class="form-group">
+                    <label for="criancaSobrenome">👶 Sobrenome da Criança:</label>
+                    <input type="text" id="criancaSobrenome" placeholder="Ex: Silva (opcional)">
+                </div>
+
+                <div class="form-group">
+                    <label for="criancaAnoNascimento">🎂 Ano de Nascimento:</label>
+                    <input type="number" id="criancaAnoNascimento" min="2000" max="2026" placeholder="Ex: 2017 (opcional)">
+                </div>
+
+                <div class="form-group">
+                    <label for="faixaEtaria">👶 Faixa Etária (Atividades Sugeridas):</label>
+                    <select id="faixaEtaria" onchange="carregarAtividadesPorIdade()">
+                        <option value="">Selecione uma faixa etária (opcional)</option>
+                        <option value="4-7">👶 Crianças pequenas (4 a 7 anos)</option>
+                        <option value="8-12">🧒 Pré-adolescentes (8 a 12 anos)</option>
+                        <option value="13-17">🧑‍🎓 Adolescentes (13 a 17 anos)</option>
+                    </select>
+                    <small style="color: #666; display: block; margin-top: 5px;">💡 Escolha uma faixa etária para carregar atividades sugeridas automaticamente</small>
+                </div>
+
+                <div class="form-group">
+                    <label>⚧ Gênero:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="genero" value="menino" required>
+                            👦 Menino
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="genero" value="menina" required>
+                            👧 Menina
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>📅 Dias da Semana:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="1" checked> Segunda
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="2" checked> Terça
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="3" checked> Quarta
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="4" checked> Quinta
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="5" checked> Sexta
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="6"> Sábado
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="dias" value="0"> Domingo
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>💰 Sistema de Recompensas:</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label" style="font-size: 16px;">
+                            <input type="checkbox" id="usarRecompensas" onchange="toggleRecompensas(this.checked)">
+                            🐷 Ativar sistema de cofrinho com valores para cada atividade
+                        </label>
+                    </div>
+                    <p style="color: #666; font-size: 13px; margin-top: 5px;">
+                        Se ativado, você poderá definir valores para cada atividade. A criança ganhará esses valores ao completar as tarefas!
+                    </p>
+                    
+                    <!-- Painel de replicação de valores -->
+                    <div id="painelReplicarValor" style="display: none; margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+                        <h3 style="color: white; margin: 0 0 15px 0; font-size: 20px;">💰 Replicar Valor para Todas as Atividades</h3>
+                        <p style="color: white; font-size: 14px; margin-bottom: 15px; opacity: 0.9;">Digite um valor e clique em replicar para preencher todas as atividades de uma vez!</p>
+                        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                            <span style="color: white; font-size: 24px; font-weight: bold;">R$</span>
+                            <input type="number" 
+                                   id="valorReplicar" 
+                                   placeholder="0.00" 
+                                   step="0.01" 
+                                   min="0"
+                                   style="flex: 1; padding: 12px; font-size: 18px; border: 3px solid white; border-radius: 10px; font-weight: bold;">
+                            <button type="button" 
+                                    onclick="replicarValorTodasAtividades()" 
+                                    class="btn btn-primary"
+                                    style="padding: 12px 30px; font-size: 18px; background: white; color: #059669; font-weight: bold; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                                ✅ REPLICAR PARA TODAS
+                            </button>
+                        </div>
+                        
+                        <!-- Botão de desmarcar todos -->
+                        <button type="button" 
+                                onclick="desmarcarTodosValores()" 
+                                class="btn btn-secondary"
+                                style="width: 100%; padding: 12px; font-size: 18px; background: #ef4444; color: white; font-weight: bold; border: 3px solid white; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">
+                            ❌ DESMARCAR TODOS OS VALORES
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>✅ Seções de Atividades:</label>
+                    <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                        Organize as atividades do dia em seções (ex: Manhã, Tarde, Noite). Você pode adicionar textos explicativos e atividades em cada seção.
+                    </p>
+                    <div id="secoesContainer"></div>
+                    <div class="button-group" style="margin-top: 10px;">
+                        <button type="button" onclick="adicionarSecao()" class="btn btn-secondary">➕ Nova Seção</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="observacoes">📝 Observações Gerais:</label>
+                    <textarea id="observacoes" rows="4" placeholder="Observações ou instruções especiais gerais..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-primary">💾 SALVAR ROTINA</button>
+                    <button type="button" onclick="cancelarFormulario()" class="btn btn-secondary">❌ CANCELAR</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Modal de Atividades Pré-definidas -->
+        <div id="modalAtividades" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h2>📚 Selecione Atividades</h2>
+                <p style="color: #666; font-size: 14px; margin-bottom: 15px;">
+                    ✨ Clique nas atividades para selecioná-las. Atividades selecionadas ficam escuras.
+                </p>
+                <div id="atividadesPreDefinidas" class="atividades-grid"></div>
+                <div style="text-align: center; margin: 20px 0;">
+                    <button onclick="adicionarAtividadesSelecionadas()" class="btn btn-primary" style="font-size: 18px; padding: 15px 30px;">✅ ADICIONAR SELECIONADAS</button>
+                </div>
+                <div class="custom-activity">
+                    <h3>✏️ Ou crie uma personalizada:</h3>
+                    <input type="text" id="atividadeCustom" placeholder="Digite a atividade...">
+                    <button onclick="adicionarAtividadeCustom()" class="btn btn-primary">➕ Adicionar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Alterar Senha -->
+        <div id="modalAlterarSenha" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModalSenha()">&times;</span>
+                <h2>🔑 Alterar Senha</h2>
+                <div id="mensagemSenha"></div>
+                <form id="formAlterarSenha">
+                    <div class="form-group">
+                        <label for="senhaAtual">🔒 Senha Atual:</label>
+                        <input type="password" id="senhaAtual" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="novaSenha">🔑 Nova Senha:</label>
+                        <input type="password" id="novaSenha" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmarSenha">✅ Confirmar Nova Senha:</label>
+                        <input type="password" id="confirmarSenha" required>
+                    </div>
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">💾 ALTERAR</button>
+                        <button type="button" onclick="fecharModalSenha()" class="btn btn-secondary">❌ CANCELAR</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/atividades-por-idade.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

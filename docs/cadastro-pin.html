@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar PIN - Rotinas Infantis</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .pin-setup-container {
+            max-width: 600px;
+            margin: 80px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .pin-setup-icon {
+            font-size: 80px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .pin-setup-title {
+            color: #1e3a8a;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .pin-setup-description {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 3px solid #fbbf24;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .warning-box h3 {
+            color: #78350f;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        
+        .warning-box ul {
+            color: #78350f;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .pin-input-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .pin-digit {
+            width: 70px;
+            height: 70px;
+            font-size: 36px;
+            text-align: center;
+            border: 3px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .pin-digit:focus {
+            outline: none;
+            border-color: #6366f1;
+            transform: scale(1.1);
+        }
+        
+        .pin-confirm-group {
+            margin-top: 40px;
+        }
+        
+        .pin-confirm-label {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="pin-setup-container">
+        <div class="pin-setup-icon">🔐</div>
+        <h1 class="pin-setup-title">Configure seu PIN Administrativo</h1>
+        <p class="pin-setup-description">
+            Para proteger as configurações das rotinas, você precisa criar um PIN de 4 dígitos.
+            Este PIN será solicitado sempre que você quiser acessar o painel de controle.
+        </p>
+        
+        <div class="warning-box">
+            <h3>⚠️ Importante:</h3>
+            <ul>
+                <li>Use um PIN que você consiga lembrar</li>
+                <li>Não compartilhe este PIN com as crianças</li>
+                <li>O PIN é diferente da sua senha de login</li>
+                <li>Use apenas números (0-9)</li>
+            </ul>
+        </div>
+        
+        <div id="mensagem"></div>
+        
+        <form id="pinForm">
+            <div class="form-group">
+                <label>Digite seu PIN de 4 números:</label>
+                <div class="pin-input-group">
+                    <input type="password" class="pin-digit" id="pin1" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pin2" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pin3" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pin4" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                </div>
+            </div>
+            
+            <div class="pin-confirm-group">
+                <div class="pin-confirm-label">Confirme o PIN:</div>
+                <div class="pin-input-group">
+                    <input type="password" class="pin-digit" id="pinConfirm1" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pinConfirm2" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pinConfirm3" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                    <input type="password" class="pin-digit" id="pinConfirm4" maxlength="1" pattern="[0-9]" inputmode="numeric" required>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="margin-top: 30px; width: 100%; font-size: 20px; padding: 15px;">
+                ✅ CADASTRAR PIN
+            </button>
+        </form>
+        
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Cadastrando PIN...</p>
+        </div>
+    </div>    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/cadastro-pin.js"></script>
+</body>
+</html>
