@@ -1,24 +1,37 @@
-# Dependencias Node.js
+# ============================================
+# .gitignore - MissaoDoDiaKids
+# ============================================
+
+# Dependências Node.js (instalar com: npm install)
 node_modules/
 
-# Dados locais (Excel) - nao vao para o GitHub
+# Dados locais com informações pessoais - NUNCA subir
 data/
 
 # Arquivos de ambiente e segredos
 .env
 *.env
+.env.local
+.env.production
 
 # Logs
 *.log
 npm-debug.log*
+yarn-debug.log*
 
 # Arquivos de sistema Windows
 Thumbs.db
 desktop.ini
+ehthumbs.db
 
 # VS Code
 .vscode/
 
-# Arquivos temporarios
+# Arquivos temporários
 *.tmp
 *.temp
+*.swp
+
+# PDFs gerados localmente
+*.pdf
+manual-usuario.pdf
