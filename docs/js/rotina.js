@@ -132,7 +132,7 @@ async function carregarRotina() {
         }
         
         renderizarRotina();
-        loadProgress();
+        await carregarProgressoDoServidor();
         
         document.getElementById('loadingScreen').style.display = 'none';
         document.getElementById('rotinaContainer').style.display = 'block';
@@ -904,6 +904,57 @@ async function salvarNoServidor() {
     } catch (error) {
         console.error('Erro ao salvar no servidor:', error);
     }
+}
+
+// Carrega progresso do Firebase (fonte única de verdade); usa localStorage como fallback
+async function carregarProgressoDoServidor() {
+    try {
+        const semanaId = getIdentificadorSemana();
+        const resp = await fetch(`/api/historico/semana/${rotinaId}/${semanaId}`);
+        if (resp.ok) {
+            const data = await resp.json();
+            if (data.sucesso && data.historico && data.historico.progresso) {
+                const progresso = data.historico.progresso;
+                const checkboxes = document.querySelectorAll('.checkbox-dia');
+
+                if (rotina.usarRecompensas) {
+                    recompensasSemanal = 0;
+                    recompensasMensal = 0;
+                }
+
+                checkboxes.forEach((checkbox) => {
+                    const key = `${checkbox.dataset.atividade}-${checkbox.dataset.dia}`;
+                    checkbox.checked = !!progresso[key];
+                    if (checkbox.checked && rotina.usarRecompensas) {
+                        const valor = parseFloat(checkbox.dataset.valor) || 0;
+                        if (valor > 0) {
+                            recompensasSemanal += valor;
+                            recompensasMensal += valor;
+                        }
+                    }
+                });
+
+                if (rotina.usarRecompensas) {
+                    salvarRecompensas();
+                    atualizarDisplayRecompensas();
+                }
+
+                // Sincroniza localStorage com o que veio do servidor
+                const dados = { rotinaId, estados: progresso };
+                localStorage.setItem(`rotina-progresso-${rotinaId}`, JSON.stringify(dados));
+
+                estadoInicial = JSON.stringify(progresso);
+                mudancasNaoSalvas = false;
+                checkCompletion();
+                console.log('✅ Progresso carregado do Firebase!');
+                return;
+            }
+        }
+    } catch (error) {
+        console.warn('⚠️ Não foi possível buscar do servidor, usando localStorage:', error);
+    }
+    // Fallback: usar localStorage
+    loadProgress();
 }
 
 function loadProgress() {
